@@ -1,29 +1,10 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-ext {
-    bintrayRepo = 'android'
-    bintrayName = 'android-object-adapter'
+def versionName = android.defaultConfig.versionName
 
-    publishedGroupId = 'de.pfaffenrodt'
-    libraryName = 'ObjectAdapter'
-    artifact = 'object-adapter'
-
-    libraryDescription = 'A wrapper for Facebook Native Like Button (LikeView) on Android'
-
-    siteUrl = 'https://github.com/pfaffenrodt/android-object-adapter'
-    gitUrl = 'https://github.com/pfaffenrodt/android-object-adapter.git'
-
-    libraryVersion = '1.0.0'
-
-    developerId = 'pfaffenrodt'
-    developerName = 'Dimitri Pfaffenrodt'
-    developerEmail = 'dimitri@pfaffenrodt.de'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
+def siteUrl = 'https://github.com/pfaffenrodt/android-object-adapter'
+def gitUrl = 'https://github.com/pfaffenrodt/android-object-adapter.git'
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -34,33 +15,40 @@ bintray {
 
     configurations = ['archives']
     pkg {
-        repo = bintrayRepo
-        name = bintrayName
+        repo = 'maven'
+        name = 'android-object-adapter'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
-        licenses = allLicenses
+        licenses = ["Apache-2.0"]
         publish = true
+        version {
+            name = versionName
+            desc = ''
+            released  = new Date()
+            vcsTag = versionName
+        }
     }
 }
-
 install {
     repositories.mavenInstaller {
         pom {
             project {
                 packaging 'aar'
-                name libraryName
+                name 'ObjectAdapter'
+                groupId 'de.pfaffenrodt'
+                artifactId 'object-adapter'
                 url siteUrl
                 licenses {
                     license {
-                        name licenseName
-                        url licenseUrl
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
                 developers {
                     developer {
-                        id developerId
-                        name developerName
-                        email developerEmail
+                        id 'pfaffenrodt'
+                        name 'Dimitri Pfaffenrodt'
+                        email 'dimitri@pfaffenrodt.de'
                     }
                 }
                 scm {
@@ -94,9 +82,4 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives javadocJar
     archives sourcesJar
-}
-
-
-task findConventions << {
-    println project.getConvention()
 }
