@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionName '1.0.0'
     }
     buildTypes {
@@ -18,8 +18,9 @@ android {
 }
 
 dependencies {
-    provided 'com.android.support:recyclerview-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
+    compileOnly "com.android.support:support-v4:$android_support_version"
+    compileOnly "com.android.support:recyclerview-v7:$android_support_version"
+    testImplementation 'junit:junit:4.12'
 }
 
 apply from: 'publish.gradle'
