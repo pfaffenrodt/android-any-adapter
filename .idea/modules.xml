@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/android-object-adapter.iml" filepath="$PROJECT_DIR$/android-object-adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/object-adapter/object-adapter.iml" filepath="$PROJECT_DIR$/object-adapter/object-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/object-adapter-kotlin/object-adapter-kotlin.iml" filepath="$PROJECT_DIR$/object-adapter-kotlin/object-adapter-kotlin.iml" />
     </modules>
   </component>
 </project>
