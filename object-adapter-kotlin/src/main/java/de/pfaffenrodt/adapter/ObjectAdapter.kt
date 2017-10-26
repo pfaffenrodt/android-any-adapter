@@ -26,20 +26,19 @@ import java.util.ArrayList
  */
 abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
 
-    internal var mPresenterSelector: PresenterSelector? = null
+    companion object {
+        private val TAG = "ObjectAdapter"
+        protected val DEBUG = false
+    }
+
+    private var mPresenterSelector: PresenterSelector
     private val mPresenters = ArrayList<Presenter>()
 
-    constructor(presenter: Presenter?) : super() {
-        if (presenter == null) {
-            throw IllegalStateException("Presenter must not be null")
-        }
+    constructor(presenter: Presenter) : super() {
         mPresenterSelector = SinglePresenterSelector(presenter)
     }
 
-    constructor(presenterSelector: PresenterSelector?) {
-        if (presenterSelector == null) {
-            throw IllegalStateException("Presenter selector must not be null")
-        }
+    constructor(presenterSelector: PresenterSelector) {
         mPresenterSelector = presenterSelector
     }
 
@@ -60,10 +59,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
     }
 
     fun getPresenter(item: Any): Presenter {
-        if (mPresenterSelector == null) {
-            throw IllegalStateException("Presenter selector must not be null")
-        }
-        return mPresenterSelector!!.getPresenter(item)
+        return mPresenterSelector.getPresenter(item)
     }
 
     protected fun onAddPresenter(presenter: Presenter, type: Int) {
@@ -71,7 +67,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return mPresenterSelector!!.getPresenter(viewType).onCreateViewHolder(parent)
+        return mPresenterSelector.getPresenter(viewType).onCreateViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -79,25 +75,20 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
         holder.presenter.onBindViewHolder(holder, item)
     }
 
-    override fun onViewRecycled(holder: ViewHolder?) {
+    override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        holder!!.presenter.onUnbindViewHolder(holder)
+        holder.presenter.onUnbindViewHolder(holder)
     }
 
-    override fun onViewAttachedToWindow(holder: ViewHolder?) {
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder!!.presenter.onViewAttachedToWindow(holder)
+        holder.presenter.onViewAttachedToWindow(holder)
     }
 
-    override fun onViewDetachedFromWindow(holder: ViewHolder?) {
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder!!.presenter.onViewDetachedFromWindow(holder)
+        holder.presenter.onViewDetachedFromWindow(holder)
     }
 
     open class ViewHolder(itemView: View, val presenter: Presenter) : RecyclerView.ViewHolder(itemView)
-
-    companion object {
-        private val TAG = "ObjectAdapter"
-        protected val DEBUG = false
-    }
 }
