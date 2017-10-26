@@ -20,24 +20,29 @@ import java.util.ArrayList
  * An [ObjectAdapter] implemented with an [ArrayList].
  */
 class ArrayObjectAdapter : ObjectAdapter {
-    protected var mItems: ArrayList<Any>? = null
 
-    constructor(presenter: Presenter) : super(presenter) {}
+    protected var mItems: ArrayList<Any> = ArrayList<Any>()
+
+    constructor(presenter: Presenter) : super(presenter)
 
     constructor(presenter: Presenter, items: ArrayList<Any>) : super(presenter) {
         this.mItems = items
     }
 
-    constructor(presenterSelector: PresenterSelector) : super(presenterSelector) {}
+    constructor(presenterSelector: PresenterSelector) : super(presenterSelector)
 
     constructor(presenterSelector: PresenterSelector, items: ArrayList<Any>) : super(presenterSelector) {
         this.mItems = items
     }
 
-    override fun getItem(position: Int): Any? {
-        return if (position >= 0 && position < itemCount) {
-            mItems!![position]
-        } else null
+    protected fun positionIsInRange(position: Int): Boolean {
+       return position in 0..(itemCount - 1)
+    }
+
+    override fun getItem(position: Int): Any {
+        return if (positionIsInRange(position)) {
+            mItems[position]
+        } else Unit
     }
 
     /**
@@ -49,19 +54,11 @@ class ArrayObjectAdapter : ObjectAdapter {
      * if not found.
      */
     fun indexOf(item: Any): Int {
-        return mItems!!.indexOf(item)
+        return mItems.indexOf(item)
     }
 
     override fun getItemCount(): Int {
-        return if (mItems != null) {
-            mItems!!.size
-        } else 0
-    }
-
-    private fun itemsShouldNotBeNull() {
-        if (mItems == null) {
-            mItems = ArrayList()
-        }
+        return mItems.size
     }
 
     /**
@@ -70,8 +67,7 @@ class ArrayObjectAdapter : ObjectAdapter {
      * @param item The item to add to the end of the adapter.
      */
     fun add(item: Any) {
-        itemsShouldNotBeNull()
-        add(mItems!!.size, item)
+        add(mItems.size, item)
     }
 
     /**
@@ -82,8 +78,7 @@ class ArrayObjectAdapter : ObjectAdapter {
      * @param item The item to insert into the adapter.
      */
     fun add(index: Int, item: Any) {
-        itemsShouldNotBeNull()
-        mItems!!.add(index, item)
+        mItems.add(index, item)
         notifyItemRangeInserted(index, 1)
     }
 
@@ -94,13 +89,12 @@ class ArrayObjectAdapter : ObjectAdapter {
      * @param index The index at which the items should be inserted.
      * @param items A [Collection] of items to insert.
      */
-    fun addAll(index: Int, items: Collection<*>) {
+    fun addAll(index: Int, items: Collection<Any>) {
         val itemsCount = items.size
         if (itemsCount == 0) {
             return
         }
-        itemsShouldNotBeNull()
-        mItems!!.addAll(index, items)
+        mItems.addAll(index, items)
         notifyItemRangeInserted(index, itemsCount)
     }
 
@@ -111,12 +105,9 @@ class ArrayObjectAdapter : ObjectAdapter {
      * @return True if the item was found and thus removed from the adapter.
      */
     fun remove(item: Any): Boolean {
-        if (mItems == null) {
-            return false
-        }
-        val index = mItems!!.indexOf(item)
+        val index = mItems.indexOf(item)
         if (index >= 0) {
-            mItems!!.removeAt(index)
+            mItems.removeAt(index)
             notifyItemRangeRemoved(index, 1)
         }
         return index >= 0
@@ -130,10 +121,10 @@ class ArrayObjectAdapter : ObjectAdapter {
      * @param item      The new item to be placed at given position.
      */
     fun replace(position: Int, item: Any) {
-        if (mItems == null || position >= mItems!!.size) {
+        if (!positionIsInRange(position)) {
             throw IllegalArgumentException("no item inside of ArrayObjectAdapter")
         }
-        mItems!![position] = item
+        mItems[position] = item
         notifyItemRangeChanged(position, 1)
     }
 
@@ -146,15 +137,12 @@ class ArrayObjectAdapter : ObjectAdapter {
      * @return The number of items removed. (no position will be -1)
      */
     fun removeItems(position: Int, count: Int): Int {
-        if (mItems == null) {
-            return NO_POSITION
-        }
-        val itemsToRemove = Math.min(count, mItems!!.size - position)
+        val itemsToRemove = Math.min(count, mItems.size - position)
         if (itemsToRemove <= 0) {
             return 0
         }
         for (i in 0 until itemsToRemove) {
-            mItems!!.removeAt(position)
+            mItems.removeAt(position)
         }
         notifyItemRangeRemoved(position, itemsToRemove)
         return itemsToRemove
@@ -164,18 +152,11 @@ class ArrayObjectAdapter : ObjectAdapter {
      * Removes all items from this adapter, leaving it empty.
      */
     fun clear() {
-        if (mItems == null) {
-            return
-        }
-        val itemCount = mItems!!.size
+        val itemCount = mItems.size
         if (itemCount == 0) {
             return
         }
-        mItems!!.clear()
+        mItems.clear()
         notifyItemRangeRemoved(0, itemCount)
-    }
-
-    companion object {
-        val NO_POSITION = -1
     }
 }
