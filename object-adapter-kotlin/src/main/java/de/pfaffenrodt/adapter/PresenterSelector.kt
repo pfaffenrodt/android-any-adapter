@@ -24,8 +24,7 @@ abstract class PresenterSelector {
      * Returns an array of all possible presenters.  The returned array should
      * not be modified.
      */
-    val presenters: Array<Presenter>?
-        get() = null
+    abstract val presenters: Array<Presenter>
 
     /**
      * Returns a presenter for the given item.

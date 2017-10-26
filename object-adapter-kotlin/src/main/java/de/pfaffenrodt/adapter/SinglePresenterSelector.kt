@@ -24,7 +24,7 @@ class SinglePresenterSelector
  */
 (private val mPresenter: Presenter) : PresenterSelector() {
 
-    override val presenters: Array<Presenter>?
+    override val presenters: Array<Presenter>
         get() = arrayOf(mPresenter)
 
     override fun getPresenter(item: Any): Presenter {
