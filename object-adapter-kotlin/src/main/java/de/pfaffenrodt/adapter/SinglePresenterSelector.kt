@@ -12,30 +12,22 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.pfaffenrodt.adapter;
+package de.pfaffenrodt.adapter
 
 /**
- * A {@link PresenterSelector} that always returns the same {@link Presenter}.
+ * A [PresenterSelector] that always returns the same [Presenter].
  * Useful for rows of items of the same type that are all rendered the same way.
  */
-public class SinglePresenterSelector extends PresenterSelector {
+class SinglePresenterSelector
+/**
+ * @param presenter The Presenter to return for every item.
+ */
+(private val mPresenter: Presenter) : PresenterSelector() {
 
-    private final Presenter mPresenter;
+    override val presenters: Array<Presenter>?
+        get() = arrayOf(mPresenter)
 
-    /**
-     * @param presenter The Presenter to return for every item.
-     */
-    public SinglePresenterSelector(Presenter presenter) {
-        mPresenter = presenter;
-    }
-
-    @Override
-    public Presenter getPresenter(Object item) {
-        return mPresenter;
-    }
-
-    @Override
-    public Presenter[] getPresenters() {
-        return new Presenter[]{mPresenter};
+    override fun getPresenter(item: Any): Presenter {
+        return mPresenter
     }
 }

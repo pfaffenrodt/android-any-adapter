@@ -12,24 +12,23 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.pfaffenrodt.adapter;
+package de.pfaffenrodt.adapter
 
 /**
- * A PresenterSelector is used to obtain a {@link Presenter} for a given Object.
- * Similar to {@link Presenter},  PresenterSelector is stateless.
+ * A PresenterSelector is used to obtain a [Presenter] for a given Object.
+ * Similar to [Presenter],  PresenterSelector is stateless.
  */
-public abstract class PresenterSelector {
-
-    /**
-     * Returns a presenter for the given item.
-     */
-    public abstract Presenter getPresenter(Object item);
+abstract class PresenterSelector {
 
     /**
      * Returns an array of all possible presenters.  The returned array should
      * not be modified.
      */
-    public Presenter[] getPresenters() {
-        return null;
-    }
+    val presenters: Array<Presenter>?
+        get() = null
+
+    /**
+     * Returns a presenter for the given item.
+     */
+    abstract fun getPresenter(item: Any): Presenter
 }
