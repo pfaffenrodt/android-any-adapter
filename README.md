@@ -18,5 +18,5 @@ This library provide an simple presenter that using the databinding feature.
 # Gradle
 
 ```gradle
-compile 'de.pfaffenrodt:object-adapter:1.0.0'
+compile 'de.pfaffenrodt:object-adapter:1.0.1'
 ```
