@@ -62,19 +62,19 @@ class ClassPresenterSelector : PresenterSelector() {
     }
 
     override fun getPresenter(item: Any): Presenter {
-        var cls: Class<*> = item.javaClass
+        var cls: Class<*>? = item.javaClass
         var presenter: Any?
 
         do {
             presenter = mClassMap[cls]
             if (presenter is PresenterSelector) {
                 val innerPresenter = presenter.getPresenter(item)
-                if (innerPresenter != null) {
+                if (innerPresenter !is NoPresenter) {
                     return innerPresenter
                 }
             }
-            cls = cls.superclass
-        } while (presenter == null)
+            cls = cls?.superclass
+        } while (presenter == null && cls != null)
 
         return presenter as Presenter
     }

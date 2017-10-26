@@ -42,7 +42,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
         mPresenterSelector = presenterSelector
     }
 
-    abstract fun getItem(position: Int): Any
+    abstract fun getItem(position: Int) : Any
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)

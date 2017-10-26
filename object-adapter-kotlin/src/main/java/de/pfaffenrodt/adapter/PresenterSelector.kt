@@ -29,5 +29,5 @@ abstract class PresenterSelector {
     /**
      * Returns a presenter for the given item.
      */
-    abstract fun getPresenter(item: Any): Presenter?
+    abstract fun getPresenter(item: Any): Presenter
 }
