@@ -26,7 +26,7 @@ class ClassPresenterSelector : PresenterSelector() {
 
     private val mClassMap = HashMap<Class<*>, Any>()
 
-    override val presenters: Array<Presenter>?
+    override val presenters: Array<Presenter>
         get() = mPresenters.toTypedArray()
 
     /**
@@ -54,16 +54,16 @@ class ClassPresenterSelector : PresenterSelector() {
                                   presenterSelector: PresenterSelector): ClassPresenterSelector {
         mClassMap.put(cls, presenterSelector)
         val innerPresenters = presenterSelector.presenters
-        for (i in innerPresenters!!.indices)
+        for (i in innerPresenters.indices)
             if (!mPresenters.contains(innerPresenters[i])) {
                 mPresenters.add(innerPresenters[i])
             }
         return this
     }
 
-    override fun getPresenter(item: Any): Presenter? {
-        var cls: Class<*>? = item.javaClass
-        var presenter: Any? = null
+    override fun getPresenter(item: Any): Presenter {
+        var cls: Class<*> = item.javaClass
+        var presenter: Any?
 
         do {
             presenter = mClassMap[cls]
@@ -73,9 +73,9 @@ class ClassPresenterSelector : PresenterSelector() {
                     return innerPresenter
                 }
             }
-            cls = cls!!.superclass
-        } while (presenter == null && cls != null)
+            cls = cls.superclass
+        } while (presenter == null)
 
-        return presenter as Presenter?
+        return presenter as Presenter
     }
 }
