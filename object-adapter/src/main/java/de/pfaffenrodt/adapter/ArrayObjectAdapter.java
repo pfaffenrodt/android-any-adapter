@@ -14,6 +14,8 @@
  */
 package de.pfaffenrodt.adapter;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,7 +23,8 @@ import java.util.Collection;
  * An {@link ObjectAdapter} implemented with an {@link ArrayList}.
  */
 public class ArrayObjectAdapter extends ObjectAdapter {
-    ArrayList<Object> mItems;
+    public static final int NO_POSITION = -1;
+    protected ArrayList<Object> mItems;
     public ArrayObjectAdapter(Presenter presenter) {
         super(presenter);
     }
@@ -68,12 +71,19 @@ public class ArrayObjectAdapter extends ObjectAdapter {
         return 0;
     }
 
+    private void itemsShouldNotBeNull() {
+        if(mItems == null) {
+            mItems = new ArrayList<>();
+        }
+    }
+
     /**
      * Adds an item to the end of the adapter.
      *
      * @param item The item to add to the end of the adapter.
      */
     public void add(Object item) {
+        itemsShouldNotBeNull();
         add(mItems.size(), item);
     }
     /**
@@ -84,6 +94,7 @@ public class ArrayObjectAdapter extends ObjectAdapter {
      * @param item The item to insert into the adapter.
      */
     public void add(int index, Object item) {
+        itemsShouldNotBeNull();
         mItems.add(index, item);
         notifyItemRangeInserted(index, 1);
     }
@@ -94,14 +105,16 @@ public class ArrayObjectAdapter extends ObjectAdapter {
      * @param index The index at which the items should be inserted.
      * @param items A {@link Collection} of items to insert.
      */
-    public void addAll(int index, Collection items) {
+    public void addAll(int index, @NonNull Collection items) {
         int itemsCount = items.size();
         if (itemsCount == 0) {
             return;
         }
+        itemsShouldNotBeNull();
         mItems.addAll(index, items);
         notifyItemRangeInserted(index, itemsCount);
     }
+
     /**
      * Removes the first occurrence of the given item from the adapter.
      *
@@ -109,6 +122,9 @@ public class ArrayObjectAdapter extends ObjectAdapter {
      * @return True if the item was found and thus removed from the adapter.
      */
     public boolean remove(Object item) {
+        if(mItems == null) {
+            return false;
+        }
         int index = mItems.indexOf(item);
         if (index >= 0) {
             mItems.remove(index);
@@ -124,6 +140,9 @@ public class ArrayObjectAdapter extends ObjectAdapter {
      * @param item      The new item to be placed at given position.
      */
     public void replace(int position, Object item) {
+        if(mItems == null || position >= mItems.size()) {
+            throw new IllegalArgumentException("no item inside of ArrayObjectAdapter");
+        }
         mItems.set(position, item);
         notifyItemRangeChanged(position, 1);
     }
@@ -133,9 +152,12 @@ public class ArrayObjectAdapter extends ObjectAdapter {
      *
      * @param position The index of the first item to remove.
      * @param count The number of items to remove.
-     * @return The number of items removed.
+     * @return The number of items removed. (no position will be -1)
      */
     public int removeItems(int position, int count) {
+        if(mItems == null) {
+            return NO_POSITION;
+        }
         int itemsToRemove = Math.min(count, mItems.size() - position);
         if (itemsToRemove <= 0) {
             return 0;
@@ -150,6 +172,9 @@ public class ArrayObjectAdapter extends ObjectAdapter {
      * Removes all items from this adapter, leaving it empty.
      */
     public void clear() {
+        if(mItems == null) {
+            return;
+        }
         int itemCount = mItems.size();
         if (itemCount == 0) {
             return;
