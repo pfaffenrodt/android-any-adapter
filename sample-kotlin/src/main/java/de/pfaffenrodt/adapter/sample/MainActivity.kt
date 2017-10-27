@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 SamplePresenterA()
         )
         classPresenterSelector.addClassPresenter(
-                Int::class,
+                Integer::class,
                 SamplePresenterB()
         )
         classPresenterSelector.addClassPresenter(
