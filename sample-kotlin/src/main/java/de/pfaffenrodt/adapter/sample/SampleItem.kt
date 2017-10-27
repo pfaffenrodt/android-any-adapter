@@ -11,20 +11,9 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.pfaffenrodt.adapter.sample;
+package de.pfaffenrodt.adapter.sample
 
 /**
  * Created by Dimitri on 14.01.17.
  */
-public class SampleItem {
-
-    private final String text;
-
-    public SampleItem(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return text;
-    }
-}
+class SampleItem(val text: String)
