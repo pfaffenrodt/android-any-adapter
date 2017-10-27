@@ -16,6 +16,7 @@ package de.pfaffenrodt.adapter
 
 import java.util.ArrayList
 import java.util.HashMap
+import kotlin.reflect.KClass
 
 /**
  * A ClassPresenterSelector selects a [Presenter] based on the item's
@@ -35,12 +36,34 @@ class ClassPresenterSelector : PresenterSelector() {
      * @param presenter The presenter that renders the objects of the given class.
      * @return This ClassPresenterSelector object.
      */
+    fun addClassPresenter(cls: KClass<*>, presenter: Presenter): ClassPresenterSelector {
+        return addClassPresenter(cls.java, presenter)
+    }
+
+    /**
+     * Sets a presenter to be used for the given class.
+     * @param cls The data model class to be rendered.
+     * @param presenter The presenter that renders the objects of the given class.
+     * @return This ClassPresenterSelector object.
+     */
     fun addClassPresenter(cls: Class<*>, presenter: Presenter): ClassPresenterSelector {
         mClassMap.put(cls, presenter)
         if (!mPresenters.contains(presenter)) {
             mPresenters.add(presenter)
         }
         return this
+    }
+
+    /**
+     * Sets a presenter selector to be used for the given class.
+     * @param cls The data model class to be rendered.
+     * @param presenterSelector The presenter selector that finds the right presenter for a given
+     * class.
+     * @return This ClassPresenterSelector object.
+     */
+    fun addClassPresenterSelector(cls: KClass<*>,
+                                  presenterSelector: PresenterSelector): ClassPresenterSelector {
+        return addClassPresenterSelector(cls.java, presenterSelector)
     }
 
     /**

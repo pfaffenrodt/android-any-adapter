@@ -34,20 +34,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val recyclerView = findViewById<View>(R.id.recyclerView) as RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val classPresenterSelector = ClassPresenterSelector()
         classPresenterSelector.addClassPresenter(
-                String::class.java,
+                String::class,
                 SamplePresenterA()
         )
         classPresenterSelector.addClassPresenter(
-                Int::class.java,
+                Int::class,
                 SamplePresenterB()
         )
         classPresenterSelector.addClassPresenter(
-                SampleItem::class.java,
+                SampleItem::class,
                 DataBindingPresenter(R.layout.item_sample_databinding, BR.item)
         )
 
@@ -86,11 +86,8 @@ class MainActivity : AppCompatActivity() {
             get() = R.layout.item_sample_b
     }
 
-    internal inner class TextViewHolder(itemView: View, presenter: Presenter) : ObjectAdapter.ViewHolder(itemView, presenter) {
-        var mTextView: TextView
-
-        init {
-            mTextView = itemView.findViewById<View>(R.id.text) as TextView
-        }
+    internal inner class TextViewHolder(itemView: View, presenter: Presenter)
+        : ObjectAdapter.ViewHolder(itemView, presenter) {
+        var mTextView: TextView = itemView.findViewById<View>(R.id.text) as TextView
     }
 }
