@@ -1,1 +1,1 @@
-include ':app',':object-adapter'
+include ':app', ':object-adapter', ':object-adapter-kotlin'
