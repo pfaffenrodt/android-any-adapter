@@ -11,6 +11,7 @@ buildscript {
     }
     repositories {
         jcenter()
+        google()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_plugin_version"
