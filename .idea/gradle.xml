@@ -8,9 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/object-adapter" />
             <option value="$PROJECT_DIR$/object-adapter-kotlin" />
+            <option value="$PROJECT_DIR$/sample" />
+            <option value="$PROJECT_DIR$/sample-kotlin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
