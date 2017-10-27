@@ -9,7 +9,7 @@ import android.view.ViewGroup
 class NoPresenter : Presenter() {
 
     override val layoutId: Int
-        get() = 0
+        get() = R.layout.no_presenter_layout
 
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup): ObjectAdapter.ViewHolder {
         return ObjectAdapter.ViewHolder(itemView, this)
