@@ -98,7 +98,9 @@ class ClassPresenterSelector : PresenterSelector() {
             }
             cls = cls?.superclass
         } while (presenter == null && cls != null)
-
+        if(presenter == null) {
+            presenter = NoPresenter()
+        }
         return presenter as Presenter
     }
 }
