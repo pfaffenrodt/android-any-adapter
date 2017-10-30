@@ -19,7 +19,7 @@ import java.util.ArrayList
 /**
  * An [ObjectAdapter] implemented with an [ArrayList].
  */
-class ArrayObjectAdapter : ObjectAdapter {
+open class ArrayObjectAdapter : ObjectAdapter {
 
     protected var mItems: ArrayList<Any> = ArrayList<Any>()
 
