@@ -15,6 +15,7 @@ package de.pfaffenrodt.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,6 +31,7 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.V
 
     PresenterSelector mPresenterSelector;
     private ArrayList<Presenter> mPresenters = new ArrayList<Presenter>();
+    private final SparseArray<Presenter> mViewTypePresenterMap = new SparseArray<>();
 
     public ObjectAdapter(Presenter presenter) {
         super();
@@ -70,13 +72,17 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.V
         return mPresenterSelector.getPresenter(item);
     }
 
-    protected void onAddPresenter(Presenter presenter, int type){
+    protected void onAddPresenter(Presenter presenter, int type) {
+        mViewTypePresenterMap.put(type, presenter);
+    }
 
+    protected Presenter getPresenterByViewType(int viewType) {
+        return mViewTypePresenterMap.get(viewType);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return mPresenterSelector.getPresenter(viewType).onCreateViewHolder(parent);
+        return getPresenterByViewType(viewType).onCreateViewHolder(parent);
     }
 
     @Override

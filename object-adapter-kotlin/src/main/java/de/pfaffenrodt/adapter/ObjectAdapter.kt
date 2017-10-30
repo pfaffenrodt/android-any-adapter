@@ -15,6 +15,7 @@ package de.pfaffenrodt.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 
@@ -33,6 +34,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
 
     private var mPresenterSelector: PresenterSelector
     private val mPresenters = ArrayList<Presenter>()
+    private val mViewTypePresenterMap = SparseArray<Presenter>();
 
     constructor(presenter: Presenter) : super() {
         mPresenterSelector = SinglePresenterSelector(presenter)
@@ -63,11 +65,15 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
     }
 
     protected fun onAddPresenter(presenter: Presenter, type: Int) {
+        mViewTypePresenterMap.put(type, presenter)
+    }
 
+    protected fun getPresenterByViewType(viewType: Int): Presenter {
+        return mViewTypePresenterMap.get(viewType)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return mPresenterSelector.getPresenter(viewType).onCreateViewHolder(parent)
+        return getPresenterByViewType(viewType).onCreateViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
