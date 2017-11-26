@@ -59,7 +59,10 @@ class MainActivity : AppCompatActivity() {
             items.add("test " + i)
             items.add(SampleItem("fooo" + i))
         }
+        val items2 = (0..49).map { SampleItem("fooo" + it) }
+
         val adapter = ArrayObjectAdapter(classPresenterSelector, items)
+        adapter.addAll(0, items2)
         recyclerView.adapter = adapter
     }
 

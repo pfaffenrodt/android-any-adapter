@@ -21,18 +21,18 @@ import java.util.ArrayList
  */
 open class ArrayObjectAdapter : ObjectAdapter {
 
-    protected var mItems: ArrayList<Any> = ArrayList<Any>()
+    protected var mItems: MutableList<Any> = ArrayList()
 
     constructor(presenter: Presenter) : super(presenter)
 
-    constructor(presenter: Presenter, items: ArrayList<Any>) : super(presenter) {
-        this.mItems = items
+    constructor(presenter: Presenter, items: Collection<Any>) : super(presenter) {
+        this.mItems.addAll(items)
     }
 
     constructor(presenterSelector: PresenterSelector) : super(presenterSelector)
 
-    constructor(presenterSelector: PresenterSelector, items: ArrayList<Any>) : super(presenterSelector) {
-        this.mItems = items
+    constructor(presenterSelector: PresenterSelector, items: Collection<Any>) : super(presenterSelector) {
+        this.mItems.addAll(items)
     }
 
     protected fun positionIsInRange(position: Int): Boolean {
@@ -94,7 +94,7 @@ open class ArrayObjectAdapter : ObjectAdapter {
         if (itemsCount == 0) {
             return
         }
-        mItems.addAll(index, items)
+        mItems.addAll(index,  items)
         notifyItemRangeInserted(index, itemsCount)
     }
 
