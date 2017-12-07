@@ -16,16 +16,13 @@ package de.pfaffenrodt.adapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * A ClassPresenterSelector selects a {@link Presenter} based on the item's
  * Java class.
  */
-public class ClassPresenterSelector extends PresenterSelector{
+public final class ClassPresenterSelector extends PresenterSelector {
     private final ArrayList<Presenter> mPresenters = new ArrayList<Presenter>();
-
     private final HashMap<Class<?>, Object> mClassMap = new HashMap<Class<?>, Object>();
-
     /**
      * Sets a presenter to be used for the given class.
      * @param cls The data model class to be rendered.
@@ -39,7 +36,6 @@ public class ClassPresenterSelector extends PresenterSelector{
         }
         return this;
     }
-
     /**
      * Sets a presenter selector to be used for the given class.
      * @param cls The data model class to be rendered.
@@ -48,21 +44,19 @@ public class ClassPresenterSelector extends PresenterSelector{
      * @return This ClassPresenterSelector object.
      */
     public ClassPresenterSelector addClassPresenterSelector(Class<?> cls,
-                                                                                                PresenterSelector presenterSelector) {
+            PresenterSelector presenterSelector) {
         mClassMap.put(cls, presenterSelector);
         Presenter[] innerPresenters = presenterSelector.getPresenters();
         for (int i = 0; i < innerPresenters.length; i++)
-            if (!mPresenters.contains(innerPresenters[i])) {
-                mPresenters.add(innerPresenters[i]);
-            }
+        if (!mPresenters.contains(innerPresenters[i])) {
+            mPresenters.add(innerPresenters[i]);
+        }
         return this;
     }
-
     @Override
     public Presenter getPresenter(Object item) {
         Class<?> cls = item.getClass();
         Object presenter = null;
-
         do {
             presenter = mClassMap.get(cls);
             if (presenter instanceof PresenterSelector) {
@@ -73,10 +67,8 @@ public class ClassPresenterSelector extends PresenterSelector{
             }
             cls = cls.getSuperclass();
         } while (presenter == null && cls != null);
-
         return (Presenter) presenter;
     }
-
     @Override
     public Presenter[] getPresenters() {
         return mPresenters.toArray(new Presenter[mPresenters.size()]);
