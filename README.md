@@ -1,5 +1,9 @@
 Android ObjectAdapter
 =====================
+Version: 
+Java [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-object-adapter/images/download.svg) ](https://bintray.com/pfaffenrodt/maven/android-object-adapter/_latestVersion)
+Kotlin [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-kotlin-object-adapter/images/download.svg) ](https://bintray.com/pfaffenrodt/maven/android-kotlin-object-adapter/_latestVersion)
+
 Adapter that is similar to the ObjectAdapter (ArrayObjectAdapter) from the Leanback support library.
 
 ## Presenter
@@ -27,10 +31,10 @@ Kotlin Version
 ## Gradle
 Java Version
 ```gradle
-compile 'de.pfaffenrodt:object-adapter:1.0.1'
+compile 'de.pfaffenrodt:object-adapter:x.x.x'
 ```
 
 Kotlin Version
 ```gradle
-compile 'de.pfaffenrodt:object-adapter-kotlin:1.0.1'
+compile 'de.pfaffenrodt:object-adapter-kotlin:x.x.x'
 ```
