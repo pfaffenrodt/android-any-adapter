@@ -271,7 +271,7 @@ open class ArrayObjectAdapter : ObjectAdapter {
                 notifyItemMoved(fromPosition, toPosition)
             }
 
-            override fun onChanged(position: Int, count: Int, payload: Any) {
+            override fun onChanged(position: Int, count: Int, payload: Any?) {
                 if (DEBUG) {
                     Log.d(TAG, "onChanged")
                 }
