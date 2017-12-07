@@ -14,32 +14,51 @@
  */
 package de.pfaffenrodt.adapter
 
-import java.util.ArrayList
+import android.support.v7.util.DiffUtil
+import android.support.v7.util.ListUpdateCallback
+import android.util.Log
+import java.util.*
 
 /**
  * An [ObjectAdapter] implemented with an [ArrayList].
  */
 open class ArrayObjectAdapter : ObjectAdapter {
 
-    protected var mItems: MutableList<Any> = ArrayList()
-
-    constructor(presenter: Presenter) : super(presenter)
-
-    constructor(presenter: Presenter, items: Collection<Any>) : super(presenter) {
-        this.mItems.addAll(items)
+    companion object {
+        private val DEBUG = false
+        private val TAG = "ArrayObjectAdapter"
     }
 
+    protected val mItems = ArrayList<Any>()
+    // To compute the payload correctly, we should use a temporary list to hold all the old items.
+    private val mOldItems = ArrayList<Any>()
+    // Un modifiable version of mItems;
+    private var mUnmodifiableItems: List<*>? = null
+
+    /**
+     * Constructs an adapter with the given [PresenterSelector].
+     */
     constructor(presenterSelector: PresenterSelector) : super(presenterSelector)
 
-    constructor(presenterSelector: PresenterSelector, items: Collection<Any>) : super(presenterSelector) {
-        this.mItems.addAll(items)
+    /**
+     * Constructs an adapter that uses the given [Presenter] for all items.
+     */
+    constructor(presenter: Presenter) : super(presenter)
+
+    /**
+     * Constructs an adapter.
+     */
+    constructor() : super()
+
+    override fun getItemCount(): Int {
+        return mItems.size
     }
 
     protected fun positionIsInRange(position: Int): Boolean {
        return position in 0..(itemCount - 1)
     }
 
-    override fun getItem(position: Int): Any {
+    override fun get(position: Int): Any {
         return if (positionIsInRange(position)) {
             mItems[position]
         } else Unit
@@ -49,7 +68,7 @@ open class ArrayObjectAdapter : ObjectAdapter {
      * Returns the index for the first occurrence of item in the adapter, or -1 if
      * not found.
      *
-     * @param item  The item to find in the list.
+     * @param item The item to find in the list.
      * @return Index of the first occurrence of the item in the adapter, or -1
      * if not found.
      */
@@ -57,8 +76,15 @@ open class ArrayObjectAdapter : ObjectAdapter {
         return mItems.indexOf(item)
     }
 
-    override fun getItemCount(): Int {
-        return mItems.size
+    /**
+     * Notify that the content of a range of items changed. Note that this is
+     * not same as items being added or removed.
+     *
+     * @param positionStart The position of first item that has changed.
+     * @param itemCount     The count of how many items have changed.
+     */
+    fun notifyArrayItemRangeChanged(positionStart: Int, itemCount: Int) {
+        notifyItemRangeChanged(positionStart, itemCount)
     }
 
     /**
@@ -72,10 +98,10 @@ open class ArrayObjectAdapter : ObjectAdapter {
 
     /**
      * Inserts an item into this adapter at the specified index.
-     * If the index is >= [.getItemCount] an exception will be thrown.
+     * If the index is > [.getItemCount] an exception will be thrown.
      *
      * @param index The index at which the item should be inserted.
-     * @param item The item to insert into the adapter.
+     * @param item  The item to insert into the adapter.
      */
     fun add(index: Int, item: Any) {
         mItems.add(index, item)
@@ -94,7 +120,7 @@ open class ArrayObjectAdapter : ObjectAdapter {
         if (itemsCount == 0) {
             return
         }
-        mItems.addAll(index,  items)
+        mItems.addAll(index, items)
         notifyItemRangeInserted(index, itemsCount)
     }
 
@@ -114,11 +140,28 @@ open class ArrayObjectAdapter : ObjectAdapter {
     }
 
     /**
+     * Moved the item at fromPosition to toPosition.
+     *
+     * @param fromPosition Previous position of the item.
+     * @param toPosition   New position of the item.
+     */
+    fun move(fromPosition: Int, toPosition: Int) {
+        if (fromPosition == toPosition) {
+            // no-op
+            return
+        }
+        val item = mItems.removeAt(fromPosition)
+        mItems.add(toPosition, item)
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    /**
      * Replaces item at position with a new item and calls notifyItemRangeChanged()
      * at the given position.  Note that this method does not compare new item to
      * existing item.
-     * @param position  The index of item to replace.
-     * @param item      The new item to be placed at given position.
+     *
+     * @param position The index of item to replace.
+     * @param item     The new item to be placed at given position.
      */
     fun replace(position: Int, item: Any) {
         if (!positionIsInRange(position)) {
@@ -133,8 +176,8 @@ open class ArrayObjectAdapter : ObjectAdapter {
      * the starting position and the number of elements to remove.
      *
      * @param position The index of the first item to remove.
-     * @param count The number of items to remove.
-     * @return The number of items removed. (no position will be -1)
+     * @param count    The number of items to remove.
+     * @return The number of items removed.
      */
     fun removeItems(position: Int, count: Int): Int {
         val itemsToRemove = Math.min(count, mItems.size - position)
@@ -158,5 +201,82 @@ open class ArrayObjectAdapter : ObjectAdapter {
         }
         mItems.clear()
         notifyItemRangeRemoved(0, itemCount)
+    }
+
+    /**
+     * Set a new item list to adapter. The DiffUtil will compute the difference and dispatch it to
+     * specified position.
+     *
+     * @param itemList List of new Items
+     * @param callback Optional DiffCallback Object to compute the difference between the old data
+     * set and new data set. When null, [.notifyDataSetChanged] will be fired.
+     */
+    fun setItems(itemList: List<Any>, callback: DiffCallback<Any>? = null) {
+        if (callback == null) {
+            // shortcut when DiffCallback is not provided
+            mItems.clear()
+            mItems.addAll(itemList)
+            notifyDataSetChanged()
+            return
+        }
+        mOldItems.clear()
+        mOldItems.addAll(mItems)
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun getOldListSize(): Int {
+                return mOldItems.size
+            }
+
+            override fun getNewListSize(): Int {
+                return itemList.size
+            }
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return callback.areItemsTheSame(mOldItems[oldItemPosition],
+                        itemList[newItemPosition])
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return callback.areContentsTheSame(mOldItems[oldItemPosition],
+                        itemList[newItemPosition])
+            }
+
+            override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+                return callback.getChangePayload(mOldItems[oldItemPosition],
+                        itemList[newItemPosition])
+            }
+        })
+        // update items.
+        mItems.clear()
+        mItems.addAll(itemList)
+        // dispatch diff result
+        diffResult.dispatchUpdatesTo(object : ListUpdateCallback {
+            override fun onInserted(position: Int, count: Int) {
+                if (DEBUG) {
+                    Log.d(TAG, "onInserted")
+                }
+                notifyItemRangeInserted(position, count)
+            }
+
+            override fun onRemoved(position: Int, count: Int) {
+                if (DEBUG) {
+                    Log.d(TAG, "onRemoved")
+                }
+                notifyItemRangeRemoved(position, count)
+            }
+
+            override fun onMoved(fromPosition: Int, toPosition: Int) {
+                if (DEBUG) {
+                    Log.d(TAG, "onMoved")
+                }
+                notifyItemMoved(fromPosition, toPosition)
+            }
+
+            override fun onChanged(position: Int, count: Int, payload: Any?) {
+                if (DEBUG) {
+                    Log.d(TAG, "onChanged")
+                }
+                notifyItemRangeChanged(position, count, payload)
+            }
+        })
     }
 }

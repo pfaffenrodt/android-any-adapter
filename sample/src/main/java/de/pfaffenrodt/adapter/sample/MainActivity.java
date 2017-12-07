@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ClassPresenterSelector classPresenterSelector = new ClassPresenterSelector();
@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
             items.add("test "+i);
             items.add(new SampleItem("fooo"+i));
         }
-        ArrayObjectAdapter adapter = new ArrayObjectAdapter(classPresenterSelector, items);
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(classPresenterSelector);
+        adapter.setItems(items, null);
         recyclerView.setAdapter(adapter);
     }
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         public TextViewHolder(View itemView, Presenter presenter) {
             super(itemView, presenter);
-            mTextView = (TextView) itemView.findViewById(R.id.text);
+            mTextView = itemView.findViewById(R.id.text);
         }
     }
 }

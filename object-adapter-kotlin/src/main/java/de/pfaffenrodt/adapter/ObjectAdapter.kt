@@ -34,7 +34,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
 
     private var mPresenterSelector: PresenterSelector
     private val mPresenters = ArrayList<Presenter>()
-    private val mViewTypePresenterMap = SparseArray<Presenter>();
+    private val mViewTypePresenterMap = SparseArray<Presenter>()
 
     constructor(presenter: Presenter) : super() {
         mPresenterSelector = SinglePresenterSelector(presenter)
@@ -44,10 +44,17 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
         mPresenterSelector = presenterSelector
     }
 
-    abstract fun getItem(position: Int) : Any
+    constructor() : this(NoPresenter())
+
+    @Deprecated("use get() instead", ReplaceWith("get(position)"))
+    fun getItem(position: Int): Any {
+        return get(position)
+    }
+
+    abstract fun get(position: Int) : Any
 
     override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
+        val item = get(position)
         val presenter = getPresenter(item)
         var type = mPresenters.indexOf(presenter)
         if (type < 0) {
@@ -77,7 +84,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = get(position)
         holder.presenter.onBindViewHolder(holder, item)
     }
 

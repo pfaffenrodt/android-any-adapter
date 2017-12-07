@@ -48,11 +48,19 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.V
         mPresenterSelector = presenterSelector;
     }
 
-    public abstract Object getItem(int position);
+    public ObjectAdapter() {
+    }
+
+    @Deprecated
+    public Object getItem(int position) {
+        return get(position);
+    }
+
+    public abstract Object get(int position);
 
     @Override
     public int getItemViewType(int position) {
-        Object item = getItem(position);
+        Object item = get(position);
         Presenter presenter = getPresenter(item);
         int type = mPresenters.indexOf(presenter);
         if (type < 0) {
@@ -87,7 +95,7 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Object item = getItem(position);
+        Object item = get(position);
         holder.getPresenter().onBindViewHolder(holder, item);
     }
 
