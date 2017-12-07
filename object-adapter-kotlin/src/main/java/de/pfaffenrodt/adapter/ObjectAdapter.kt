@@ -46,7 +46,7 @@ abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
 
     constructor() : this(NoPresenter())
 
-    @Deprecated("use get() instead")
+    @Deprecated("use get() instead", ReplaceWith("get(position)"))
     fun getItem(position: Int): Any {
         return get(position)
     }
