@@ -16,4 +16,9 @@ package de.pfaffenrodt.adapter.sample
 /**
  * Created by Dimitri on 14.01.17.
  */
-class SampleItem(val text: String)
+
+abstract class BaseItem<out T>(val id: Int, val value: T)
+
+class SampleItemA(id: Int, value: String) : BaseItem<String>(id, value)
+class SampleItemB(id: Int, value: Int) : BaseItem<Int>(id, value)
+class SampleItemC(id: Int, value: String) : BaseItem<String>(id, value)

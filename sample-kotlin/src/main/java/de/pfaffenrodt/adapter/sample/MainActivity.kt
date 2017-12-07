@@ -15,19 +15,15 @@ package de.pfaffenrodt.adapter.sample
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import de.pfaffenrodt.adapter.*
 
 import java.util.ArrayList
-
-import de.pfaffenrodt.adapter.ArrayObjectAdapter
-import de.pfaffenrodt.adapter.ClassPresenterSelector
-import de.pfaffenrodt.adapter.DataBindingPresenter
-import de.pfaffenrodt.adapter.ObjectAdapter
-import de.pfaffenrodt.adapter.Presenter
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,32 +35,46 @@ class MainActivity : AppCompatActivity() {
 
         val classPresenterSelector = ClassPresenterSelector()
         classPresenterSelector.addClassPresenter(
-                String::class,
+                SampleItemA::class,
                 SamplePresenterA()
         )
         classPresenterSelector.addClassPresenter(
-                Integer::class,
+                SampleItemB::class,
                 SamplePresenterB()
         )
         classPresenterSelector.addClassPresenter(
-                SampleItem::class,
+                SampleItemC::class,
                 DataBindingPresenter(R.layout.item_sample_databinding, BR.item)
         )
 
-        val items = ArrayList<Any>()
+        val items = ArrayList<BaseItem<*>>()
         for (i in 0..49) {
-            if (i % 2 == 0) {
-                items.add(i)
+            when {
+                i % 2 == 0 -> items.add(SampleItemA(i, "fo" +i))
+                i % 3 == 0 -> items.add(SampleItemB(i, i))
+                else -> items.add(SampleItemC(i, "fooo" + i))
             }
-            items.add("test " + i)
-            items.add(SampleItem("fooo" + i))
         }
-        val items2 = (0..49).map { SampleItem("fooo" + it) }
 
         val adapter = ArrayObjectAdapter(classPresenterSelector)
         adapter.setItems(items)
-        adapter.addAll(0, items2)
         recyclerView.adapter = adapter
+        Handler()
+            .postDelayed (
+            {
+                for(i in 0 until items.size) {
+                    when {
+                        i % 6 == 0 -> items[i] = SampleItemC(i, "baar" + i)
+                        i % 4 == 0 -> items[i] = SampleItemA(i, "baar" + i)
+                    }
+                }
+                items.removeAt(7)
+                items.removeAt(1)
+                items.removeAt(4)
+                adapter.setItems(items, SampleDiffCallback())
+            },
+            1000
+        )
     }
 
 
@@ -77,7 +87,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(viewHolder: ObjectAdapter.ViewHolder, item: Any) {
-            (viewHolder as TextViewHolder).mTextView.text = item.toString()
+            if(item is BaseItem<*>) {
+                (viewHolder as TextViewHolder).mTextView.text = item.value.toString()
+            } else {
+                (viewHolder as TextViewHolder).mTextView.text = item.toString()
+            }
         }
 
         override fun onUnbindViewHolder(viewHolder: ObjectAdapter.ViewHolder) {
@@ -93,5 +107,21 @@ class MainActivity : AppCompatActivity() {
     internal inner class TextViewHolder(itemView: View, presenter: Presenter)
         : ObjectAdapter.ViewHolder(itemView, presenter) {
         var mTextView: TextView = itemView.findViewById<View>(R.id.text) as TextView
+    }
+}
+
+class SampleDiffCallback : DiffCallback<Any>() {
+    override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+        if(oldItem is BaseItem<*> && newItem is BaseItem<*>) {
+            return oldItem.id == newItem.id
+        }
+        return false
+    }
+
+    override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+        if(oldItem is BaseItem<*> && newItem is BaseItem<*>) {
+            return oldItem.value == newItem.value
+        }
+        return false
     }
 }
