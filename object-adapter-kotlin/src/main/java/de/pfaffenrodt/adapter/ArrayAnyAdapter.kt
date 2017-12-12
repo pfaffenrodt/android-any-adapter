@@ -32,8 +32,6 @@ open class ArrayAnyAdapter : AnyAdapter {
     protected val mItems = ArrayList<Any>()
     // To compute the payload correctly, we should use a temporary list to hold all the old items.
     private val mOldItems = ArrayList<Any>()
-    // Un modifiable version of mItems;
-    private var mUnmodifiableItems: List<*>? = null
 
     /**
      * Constructs an adapter with the given [PresenterSelector].
