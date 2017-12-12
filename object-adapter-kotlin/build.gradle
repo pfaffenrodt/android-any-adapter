@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -22,11 +23,49 @@ android {
 dependencies {
     compileOnly "com.android.support:support-v4:$android_support_version"
     compileOnly "com.android.support:recyclerview-v7:$android_support_version"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation "com.android.support:recyclerview-v7:$android_support_version"
     kapt "com.android.databinding:compiler:$android_plugin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-}
 
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    //testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation ("org.jetbrains.spek:spek-api:$spek_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    testImplementation ("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+        exclude group: 'org.junit.platform'
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    testImplementation junit5()
+    testCompileOnly "de.mannodermaus.gradle.plugins:android-junit5-embedded-runtime:1.0.0-RC3-rev1"
+    testCompile 'org.mockito:mockito-core:2.5.0'
+    testCompile "com.nhaarman:mockito-kotlin:1.1.0"
+}
+junitPlatform {
+    filters {
+        engines {
+            include "spek"
+        }
+    }
+}
+afterEvaluate {
+    android.buildTypes.each {
+        def name = it.name
+
+        def copyTestTask = project.task(type: Copy, "copyKotlin${name.capitalize()}UnitTestClasses") {
+            from "build/tmp/kotlin-classes/${name}UnitTest"
+            into "build/intermediates/classes/test/$name"
+        }
+        project.tasks.getByName("compile${name.capitalize()}UnitTestKotlin").finalizedBy copyTestTask
+
+        def copyMainTask = project.task(type: Copy, "copyKotlin${name.capitalize()}Classes") {
+            from "build/tmp/kotlin-classes/${name}"
+            into "build/intermediates/classes/$name"
+        }
+        project.tasks.getByName("compile${name.capitalize()}Kotlin").finalizedBy copyMainTask
+    }
+}
 apply from: 'publish.gradle'
