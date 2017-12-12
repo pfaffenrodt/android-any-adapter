@@ -55,7 +55,36 @@ abstract class DiffCallback<in Value> {
      *
      * @see android.support.v7.util.DiffUtil.Callback.getChangePayload
      */
-    fun getChangePayload(oldItem: Value, newItem: Value): Any? {
+    open fun getChangePayload(oldItem: Value, newItem: Value): Any? {
         return null
+    }
+}
+
+/**
+ * Wrap DiffCallback. check if old and new items are instance of T
+ */
+inline fun <reified T> DiffCallback<T>.toAnyTypedDiffCallback() : DiffCallback<Any> {
+    val wrappedCallback: DiffCallback<T> = this
+    return object : DiffCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            if(oldItem is T && newItem is T) {
+                return wrappedCallback.areItemsTheSame(oldItem, newItem)
+            }
+            return false
+        }
+
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+            if(oldItem is T && newItem is T) {
+                return wrappedCallback.areContentsTheSame(oldItem, newItem)
+            }
+            return false
+        }
+
+        override fun getChangePayload(oldItem: Any, newItem: Any): Any? {
+            if(oldItem is T && newItem is T) {
+                return wrappedCallback.getChangePayload(oldItem, newItem)
+            }
+            return null
+        }
     }
 }

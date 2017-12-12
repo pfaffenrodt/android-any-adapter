@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 items.removeAt(7)
                 items.removeAt(1)
                 items.removeAt(4)
-                adapter.setItems(items, SampleDiffCallback())
+                adapter.setItems(items, SampleDiffCallback().toAnyTypedDiffCallback())
             },
             1000
         )
@@ -110,18 +110,12 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class SampleDiffCallback : DiffCallback<Any>() {
-    override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-        if(oldItem is BaseItem<*> && newItem is BaseItem<*>) {
-            return oldItem.id == newItem.id
-        }
-        return false
+class SampleDiffCallback : DiffCallback<BaseItem<*>>() {
+    override fun areItemsTheSame(oldItem: BaseItem<*>, newItem: BaseItem<*>): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-        if(oldItem is BaseItem<*> && newItem is BaseItem<*>) {
-            return oldItem.value == newItem.value
-        }
-        return false
+    override fun areContentsTheSame(oldItem: BaseItem<*>, newItem: BaseItem<*>): Boolean {
+        return oldItem.value == newItem.value
     }
 }
