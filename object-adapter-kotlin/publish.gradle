@@ -38,7 +38,7 @@ install {
         pom {
             project {
                 packaging 'aar'
-                name 'ObjectAdapter'
+                name 'AnyAdapter'
                 groupId 'de.pfaffenrodt'
                 artifactId 'object-adapter-kotlin'
                 url siteUrl

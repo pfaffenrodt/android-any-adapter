@@ -16,21 +16,19 @@
  */
 package de.pfaffenrodt.adapter
 
-import de.pfaffenrodt.adapter.ArrayObjectAdapter
-
 /**
- * Callback that informs [ArrayObjectAdapter] how to compute list updates when using
- * [android.support.v7.util.DiffUtil] in [ArrayObjectAdapter.setItems] method.
+ * Callback that informs [ArrayAnyAdapter] how to compute list updates when using
+ * [android.support.v7.util.DiffUtil] in [ArrayAnyAdapter.setItems] method.
  *
  *
- * The [ArrayObjectAdapter.setItems] method will pass items from different
+ * The [ArrayAnyAdapter.setItems] method will pass items from different
  * lists to this callback in order to implement
  * the [android.support.v7.util.DiffUtil.Callback] it uses to compute differences between
  * lists.
  *
  * @param <Value> Type of items to compare.
 </Value> */
-abstract class DiffCallback<Value> {
+abstract class DiffCallback<in Value> {
     /**
      * Called to decide whether two objects represent the same item.
      *

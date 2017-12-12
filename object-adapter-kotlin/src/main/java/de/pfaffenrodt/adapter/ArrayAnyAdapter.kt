@@ -20,13 +20,13 @@ import android.util.Log
 import java.util.*
 
 /**
- * An [ObjectAdapter] implemented with an [ArrayList].
+ * An [AnyAdapter] implemented with an [ArrayList].
  */
-open class ArrayObjectAdapter : ObjectAdapter {
+open class ArrayAnyAdapter : AnyAdapter {
 
     companion object {
         private val DEBUG = false
-        private val TAG = "ArrayObjectAdapter"
+        private val TAG = "ArrayAnyAdapter"
     }
 
     protected val mItems = ArrayList<Any>()
@@ -165,7 +165,7 @@ open class ArrayObjectAdapter : ObjectAdapter {
      */
     fun replace(position: Int, item: Any) {
         if (!positionIsInRange(position)) {
-            throw IllegalArgumentException("no item inside of ArrayObjectAdapter")
+            throw IllegalArgumentException("no item inside of ArrayAnyAdapter")
         }
         mItems[position] = item
         notifyItemRangeChanged(position, 1)

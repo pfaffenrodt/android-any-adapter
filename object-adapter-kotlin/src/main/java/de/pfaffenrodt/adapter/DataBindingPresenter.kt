@@ -45,7 +45,7 @@ class DataBindingPresenter(override val layoutId: Int, private val mBindingVaria
         return ViewHolder(DataBindingUtil.bind(itemView), this)
     }
 
-    override fun onBindViewHolder(viewHolder: ObjectAdapter.ViewHolder, item: Any) {
+    override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {
         val bindingViewHolder = viewHolder as ViewHolder
         onBindItem(bindingViewHolder.mBinding, item)
         bindingViewHolder.mBinding.executePendingBindings()
@@ -55,11 +55,11 @@ class DataBindingPresenter(override val layoutId: Int, private val mBindingVaria
         binding.setVariable(mBindingVariableId, item)
     }
 
-    override fun onUnbindViewHolder(viewHolder: ObjectAdapter.ViewHolder) {
+    override fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {
         super.onUnbindViewHolder(viewHolder)
         val bindingViewHolder = viewHolder as ViewHolder
         bindingViewHolder.mBinding.unbind()
     }
 
-    inner class ViewHolder(internal var mBinding: ViewDataBinding, presenter: Presenter) : ObjectAdapter.ViewHolder(mBinding.root, presenter)
+    inner class ViewHolder(internal var mBinding: ViewDataBinding, presenter: Presenter) : AnyAdapter.ViewHolder(mBinding.root, presenter)
 }

@@ -25,10 +25,10 @@ import java.util.ArrayList
  * Base class for an Adapter.  Provides access to a data model and is
  * decoupled from the presentation of the items via [PresenterSelector].
  */
-abstract class ObjectAdapter : RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
+abstract class AnyAdapter : RecyclerView.Adapter<AnyAdapter.ViewHolder> {
 
     companion object {
-        private val TAG = "ObjectAdapter"
+        private val TAG = "AnyAdapter"
         protected val DEBUG = false
     }
 

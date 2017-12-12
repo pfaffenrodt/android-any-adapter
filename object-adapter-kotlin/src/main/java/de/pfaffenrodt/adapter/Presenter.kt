@@ -24,11 +24,11 @@ import android.view.ViewGroup
  * A Presenter is used to generate [View]s and bind Objects to them on
  * demand. It is closely related to the concept of an [ ], but is
  * not position-based.  The leanback framework implements the adapter concept using
- * [ObjectAdapter] which refers to a Presenter (or [PresenterSelector]) instance.
+ * [AnyAdapter] which refers to a Presenter (or [PresenterSelector]) instance.
  *
  *
  *
- * Presenters should be stateless.  Presenters typically extend [ObjectAdapter.ViewHolder] to store all
+ * Presenters should be stateless.  Presenters typically extend [AnyAdapter.ViewHolder] to store all
  * necessary view state information, such as references to child views to be used when
  * binding to avoid expensive calls to [View.findViewById].
  *
@@ -74,12 +74,12 @@ abstract class Presenter {
     /**
      * Creates a new [View].
      */
-    fun onCreateViewHolder(parent: ViewGroup): ObjectAdapter.ViewHolder {
+    fun onCreateViewHolder(parent: ViewGroup): AnyAdapter.ViewHolder {
         val itemView = inflateItemLayout(parent)
         return onCreateViewHolder(itemView, parent)
     }
 
-    abstract fun onCreateViewHolder(itemView: View, parent: ViewGroup): ObjectAdapter.ViewHolder
+    abstract fun onCreateViewHolder(itemView: View, parent: ViewGroup): AnyAdapter.ViewHolder
 
     private fun inflateItemLayout(parent: ViewGroup): View {
         return LayoutInflater.from(parent.context)
@@ -89,14 +89,14 @@ abstract class Presenter {
     /**
      * Binds a [View] to an item.
      */
-    abstract fun onBindViewHolder(viewHolder: ObjectAdapter.ViewHolder, item: Any)
+    abstract fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any)
 
     /**
      * Unbinds a [View] from an item. Any expensive references may be
      * released here, and any fields that are not bound for every item should be
      * cleared here.
      */
-    open fun onUnbindViewHolder(viewHolder: ObjectAdapter.ViewHolder) {}
+    open fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {}
 
     /**
      * Called when a view created by this presenter has been attached to a window.
@@ -109,7 +109,7 @@ abstract class Presenter {
      *
      * @param holder Holder of the view being attached
      */
-    fun onViewAttachedToWindow(holder: ObjectAdapter.ViewHolder) {}
+    fun onViewAttachedToWindow(holder: AnyAdapter.ViewHolder) {}
 
     /**
      * Called when a view created by this presenter has been detached from its window.
@@ -121,7 +121,7 @@ abstract class Presenter {
      *
      * @param holder Holder of the view being detached
      */
-    fun onViewDetachedFromWindow(holder: ObjectAdapter.ViewHolder) {}
+    fun onViewDetachedFromWindow(holder: AnyAdapter.ViewHolder) {}
 
     /**
      * Called to set a click listener for the given view holder.
@@ -133,7 +133,7 @@ abstract class Presenter {
      * @param holder The view holder containing the view(s) on which the listener should be set.
      * @param listener The click listener to be set.
      */
-    fun setOnClickListener(holder: ObjectAdapter.ViewHolder, listener: View.OnClickListener) {
+    fun setOnClickListener(holder: AnyAdapter.ViewHolder, listener: View.OnClickListener) {
         holder.itemView.setOnClickListener(listener)
     }
 }

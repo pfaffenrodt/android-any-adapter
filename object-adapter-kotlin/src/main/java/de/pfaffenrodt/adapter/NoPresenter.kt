@@ -25,9 +25,9 @@ class NoPresenter : Presenter() {
     override val layoutId: Int
         get() = R.layout.no_presenter_layout
 
-    override fun onCreateViewHolder(itemView: View, parent: ViewGroup): ObjectAdapter.ViewHolder {
-        return ObjectAdapter.ViewHolder(itemView, this)
+    override fun onCreateViewHolder(itemView: View, parent: ViewGroup): AnyAdapter.ViewHolder {
+        return AnyAdapter.ViewHolder(itemView, this)
     }
 
-    override fun onBindViewHolder(viewHolder: ObjectAdapter.ViewHolder, item: Any) {}
+    override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {}
 }
