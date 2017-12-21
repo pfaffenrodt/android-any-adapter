@@ -28,6 +28,26 @@ What is Data Binding? [Doku](https://developer.android.com/topic/libraries/data-
 Data Binding allows to use ObjectAdapter without implementing an Presenter.
 DataBindingPresenter will bind and unbind item to/from view.
 
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="item"
+            type="de.pfaffenrodt.adapter.sample.SampleItem" />
+    </data>
+    <TextView
+        android:id="@+id/text"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{item.text}"
+        />
+</layout>
+
+```
+
 Java Version
 ```java
 
