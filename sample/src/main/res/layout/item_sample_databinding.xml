@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="de.pfaffenrodt.adapter.sample.SampleItems" />
+            type="de.pfaffenrodt.adapter.sample.SampleItem" />
     </data>
 <TextView
           android:id="@+id/text"
