@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import de.pfaffenrodt.adapter.ArrayObjectAdapter;
 import de.pfaffenrodt.adapter.ClassPresenterSelector;
+import de.pfaffenrodt.adapter.EventHandler;
 import de.pfaffenrodt.adapter.DataBindingPresenter;
 import de.pfaffenrodt.adapter.ObjectAdapter;
 import de.pfaffenrodt.adapter.Presenter;
@@ -49,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
         );
         classPresenterSelector.addClassPresenter(
                 SampleItem.class,
-                new DataBindingPresenter(R.layout.item_sample_databinding, BR.item)
+                new DataBindingPresenter(
+                        R.layout.item_sample_databinding,
+                        BR.item
+                ).bindVariable(BR.eventHandler, mEventHandler)
         );
 
         ArrayList<Object> items = new ArrayList<>();
@@ -103,4 +108,11 @@ public class MainActivity extends AppCompatActivity {
             mTextView = itemView.findViewById(R.id.text);
         }
     }
+
+    private final EventHandler mEventHandler = new EventHandler() {
+        @Override
+        public void onEvent(View view, Object item) {
+            Log.i("EventHandler", "onEvent: " + item);
+        }
+    };
 }

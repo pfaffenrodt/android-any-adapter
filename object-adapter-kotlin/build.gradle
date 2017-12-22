@@ -25,7 +25,7 @@ dependencies {
     compileOnly "com.android.support:recyclerview-v7:$android_support_version"
     testImplementation "com.android.support:recyclerview-v7:$android_support_version"
     kapt "com.android.databinding:compiler:$android_plugin_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     //testImplementation 'junit:junit:4.12'

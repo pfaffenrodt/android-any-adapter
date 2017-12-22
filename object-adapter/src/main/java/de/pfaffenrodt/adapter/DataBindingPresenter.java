@@ -15,6 +15,7 @@ package de.pfaffenrodt.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.v4.util.SparseArrayCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -45,10 +46,32 @@ public class DataBindingPresenter extends Presenter{
 
     private final int mLayoutId;
     private final int mBindingVariableId;
+    private final SparseArrayCompat<Object> mBindMap;
 
     public DataBindingPresenter(int layoutId, int bindingVariableId) {
-        this.mLayoutId = layoutId;
+        this(layoutId, bindingVariableId,  null);
+    }
+
+    public DataBindingPresenter(
+            int layoutId,
+            int bindingVariableId,
+            SparseArrayCompat<Object> bindMap) {
+        mLayoutId = layoutId;
         mBindingVariableId = bindingVariableId;
+        if(bindMap == null) {
+            mBindMap = new SparseArrayCompat<>();
+        } else {
+            mBindMap = bindMap;
+        }
+    }
+
+    public DataBindingPresenter bindVariable(int bindingVariableId, Object eventHandler) {
+        mBindMap.put(bindingVariableId, eventHandler);
+        return this;
+    }
+
+    public void unbindVariable(int bindingVariableId) {
+        mBindMap.remove(bindingVariableId);
     }
 
     @Override
@@ -65,11 +88,32 @@ public class DataBindingPresenter extends Presenter{
     public void onBindViewHolder(ObjectAdapter.ViewHolder viewHolder, Object item) {
         ViewHolder bindingViewHolder = (ViewHolder) viewHolder;
         onBindItem(bindingViewHolder.mBinding, item);
+        onBindGlobalElements(bindingViewHolder.mBinding);
         bindingViewHolder.mBinding.executePendingBindings();
     }
 
     protected void onBindItem(ViewDataBinding binding, Object item) {
         binding.setVariable(mBindingVariableId, item);
+    }
+
+    protected void onBindGlobalElements(ViewDataBinding binding) {
+        for (int i = 0; i < mBindMap.size(); i++) {
+            int eventBindingVariableId = mBindMap.keyAt(i);
+            Object eventHandler = mBindMap.valueAt(i);
+            onBindGlobalElement(
+                    binding,
+                    eventBindingVariableId,
+                    eventHandler
+            );
+        }
+    }
+
+    protected void onBindGlobalElement(ViewDataBinding binding,
+                                       int bindingVariableId,
+                                       Object globalElement) {
+        if(bindingVariableId != -1 && globalElement != null) {
+            binding.setVariable(bindingVariableId, globalElement);
+        }
     }
 
     @Override
