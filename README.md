@@ -79,3 +79,14 @@ List<String> items = ...;
 adapter.setItems(items, null);
 
 ```
+
+```kotlin
+classPresenterSelector.addClassPresenter(
+        SampleItemA::class, // item class 
+        SamplePresenterA()
+)
+val adapter = ArrayObjectAdapter(classPresenterSelector)
+val items :List<SampleItemA> items = ...
+adapter.setItems(items);
+
+```
