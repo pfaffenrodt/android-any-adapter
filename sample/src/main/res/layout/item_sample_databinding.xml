@@ -5,6 +5,9 @@
         <variable
             name="item"
             type="de.pfaffenrodt.adapter.sample.SampleItem" />
+        <variable
+            name="eventHandler"
+            type="de.pfaffenrodt.adapter.EventHandler" />
     </data>
 <TextView
           android:id="@+id/text"
@@ -15,5 +18,6 @@
           tools:text="lorem ipsum"
           android:background="#44f"
           android:textColor="#fff"
+          android:onClick="@{view -> eventHandler.onEvent(view, item)}"
     />
 </layout>

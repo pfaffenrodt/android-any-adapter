@@ -15,6 +15,7 @@ package de.pfaffenrodt.adapter
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.support.v4.util.SparseArrayCompat
 import android.view.View
 import android.view.ViewGroup
 
@@ -27,19 +28,34 @@ import android.view.ViewGroup
  *
  * item_sample.xml:
  * <layout>
- * <data>
- * <variable name="item" type="de.pfaffenrodt.adapter.sample.SampleItem"></variable>
-</data> *
- * ...
-</layout> *
+ *     <data>
+ *         <variable
+ *          name="item"
+ *          type="de.pfaffenrodt.adapter.sample.SampleItem" />
+ *     </data>
+ *     ...
+ * </layout>
  *
  * Databinding can be enabled in build.gradle.
  * android{
- * dataBinding.enabled = true
+ *      dataBinding.enabled = true
  * }
-</pre> *
+ * </pre>
  */
-class DataBindingPresenter(override val layoutId: Int, private val mBindingVariableId: Int) : Presenter() {
+open class DataBindingPresenter(
+        override val layoutId: Int,
+        private val mBindingVariableId: Int,
+        private val mBindMap: SparseArrayCompat<Any> = SparseArrayCompat()
+) : Presenter() {
+
+    fun bindVariable(bindingVariableId: Int, eventHandler: Any): DataBindingPresenter {
+        mBindMap.put(bindingVariableId, eventHandler)
+        return this
+    }
+
+    fun unbindVariable(bindingVariableId: Int) {
+        mBindMap.remove(bindingVariableId)
+    }
 
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup): ViewHolder {
         return ViewHolder(DataBindingUtil.bind(itemView), this)
@@ -48,11 +64,32 @@ class DataBindingPresenter(override val layoutId: Int, private val mBindingVaria
     override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {
         val bindingViewHolder = viewHolder as ViewHolder
         onBindItem(bindingViewHolder.mBinding, item)
+        onBindGlobalElements(bindingViewHolder.mBinding)
         bindingViewHolder.mBinding.executePendingBindings()
     }
 
     protected fun onBindItem(binding: ViewDataBinding, item: Any) {
         binding.setVariable(mBindingVariableId, item)
+    }
+
+    protected fun onBindGlobalElements(binding: ViewDataBinding) {
+        for (i in 0 until mBindMap.size()) {
+            val eventBindingVariableId = mBindMap.keyAt(i)
+            val eventHandler = mBindMap.valueAt(i)
+            onBindGlobalElement(
+                    binding,
+                    eventBindingVariableId,
+                    eventHandler
+            )
+        }
+    }
+
+    protected fun onBindGlobalElement(binding: ViewDataBinding,
+                                      bindingVariableId: Int,
+                                      globalElement: Any?) {
+        if (bindingVariableId != -1 && globalElement != null) {
+            binding.setVariable(bindingVariableId, globalElement)
+        }
     }
 
     override fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {

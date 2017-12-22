@@ -51,7 +51,8 @@ DataBindingPresenter will bind and unbind item to/from view.
 Java Version
 ```java
 
-    new DataBindingPresenter(R.layout.item_sample_databinding, BR.item);
+    new DataBindingPresenter(R.layout.item_sample_databinding, BR.item)
+    .bindVariable(BR.eventHandler, mEventHandler);// bind click listener
 
 ```
 
@@ -59,6 +60,7 @@ Kotlin Version
 ```kotlin
 
     DataBindingPresenter(R.layout.item_sample_databinding, BR.item)
+    .bindVariable(BR.eventHandler, mEventHandler)// bind click listener
 
 ```
 
