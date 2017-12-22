@@ -42,7 +42,7 @@ import android.view.ViewGroup
  * }
  * </pre>
  */
-class DataBindingPresenter(
+open class DataBindingPresenter(
         override val layoutId: Int,
         private val mBindingVariableId: Int,
         private val mBindMap: SparseArrayCompat<Any> = SparseArrayCompat()
