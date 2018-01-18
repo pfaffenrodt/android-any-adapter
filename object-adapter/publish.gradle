@@ -1,7 +1,7 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def versionName = android.defaultConfig.versionName
+def versionName = '1.2.0'
 def siteUrl = 'https://github.com/pfaffenrodt/android-object-adapter'
 def gitUrl = 'https://github.com/pfaffenrodt/android-object-adapter.git'
 

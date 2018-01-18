@@ -9,7 +9,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionName '1.2.1'
     }
     buildTypes {
         release {
@@ -18,6 +17,7 @@ android {
         }
     }
     dataBinding.enabled = true
+
 }
 
 dependencies {
@@ -51,21 +51,21 @@ junitPlatform {
         }
     }
 }
-afterEvaluate {
-    android.buildTypes.each {
-        def name = it.name
-
-        def copyTestTask = project.task(type: Copy, "copyKotlin${name.capitalize()}UnitTestClasses") {
-            from "build/tmp/kotlin-classes/${name}UnitTest"
-            into "build/intermediates/classes/test/$name"
-        }
-        project.tasks.getByName("compile${name.capitalize()}UnitTestKotlin").finalizedBy copyTestTask
-
-        def copyMainTask = project.task(type: Copy, "copyKotlin${name.capitalize()}Classes") {
-            from "build/tmp/kotlin-classes/${name}"
-            into "build/intermediates/classes/$name"
-        }
-        project.tasks.getByName("compile${name.capitalize()}Kotlin").finalizedBy copyMainTask
-    }
-}
+//afterEvaluate {
+//    android.buildTypes.each {
+//        def name = it.name
+//
+//        def copyTestTask = project.task(type: Copy, "copyKotlin${name.capitalize()}UnitTestClasses") {
+//            from "build/tmp/kotlin-classes/${name}UnitTest"
+//            into "build/intermediates/classes/test/$name"
+//        }
+//        project.tasks.getByName("compile${name.capitalize()}UnitTestKotlin").finalizedBy copyTestTask
+//
+//        def copyMainTask = project.task(type: Copy, "copyKotlin${name.capitalize()}Classes") {
+//            from "build/tmp/kotlin-classes/${name}"
+//            into "build/intermediates/classes/$name"
+//        }
+//        project.tasks.getByName("compile${name.capitalize()}Kotlin").finalizedBy copyMainTask
+//    }
+//}
 apply from: 'publish.gradle'
