@@ -13,6 +13,7 @@ open class ClickableDataBindingPresenter(
     ): DataBindingPresenter(layoutId, bindingVariableId, bindMap) {
 
     override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {
+        super.onBindViewHolder(viewHolder, item)
         viewHolder.itemView.setOnClickListener({ mClickHandler?.onEvent(viewHolder.itemView, item)})
     }
 

@@ -9,7 +9,7 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionName rootProject.ext.versionName
+        versionName '1.2.1'
     }
     buildTypes {
         release {
