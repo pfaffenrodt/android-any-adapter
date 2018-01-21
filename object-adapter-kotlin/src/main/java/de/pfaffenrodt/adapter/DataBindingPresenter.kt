@@ -16,6 +16,7 @@ package de.pfaffenrodt.adapter
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v4.util.SparseArrayCompat
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 
@@ -61,7 +62,7 @@ open class DataBindingPresenter(
         return ViewHolder(DataBindingUtil.bind(itemView), this)
     }
 
-    override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any) {
         val bindingViewHolder = viewHolder as ViewHolder
         onBindItem(bindingViewHolder.mBinding, item)
         onBindGlobalElements(bindingViewHolder.mBinding)
@@ -92,11 +93,14 @@ open class DataBindingPresenter(
         }
     }
 
-    override fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {
+    override fun onUnbindViewHolder(viewHolder: RecyclerView.ViewHolder) {
         super.onUnbindViewHolder(viewHolder)
         val bindingViewHolder = viewHolder as ViewHolder
         bindingViewHolder.mBinding.unbind()
     }
 
-    inner class ViewHolder(internal var mBinding: ViewDataBinding, presenter: Presenter) : AnyAdapter.ViewHolder(mBinding.root, presenter)
+    inner class ViewHolder(
+        internal var mBinding: ViewDataBinding,
+        override val presenter: Presenter
+    ): RecyclerView.ViewHolder(mBinding.root), PresenterProvider
 }

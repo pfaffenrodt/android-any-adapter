@@ -14,9 +14,9 @@
 package de.pfaffenrodt.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Base class for an Adapter.  Provides access to a data model and is
  * decoupled from the presentation of the items via {@link PresenterSelector}.
  */
-public abstract class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.ViewHolder> {
+public abstract class ObjectAdapter extends RecyclerView.Adapter<ViewHolder> {
     private static final String TAG = "ObjectAdapter";
     protected static final boolean DEBUG = false;
 
@@ -93,41 +93,36 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ObjectAdapter.V
         return getPresenterByViewType(viewType).onCreateViewHolder(parent);
     }
 
+    protected Presenter getPresenter(ViewHolder holder) {
+        if(holder instanceof PresenterProvider) {
+            return ((PresenterProvider) holder).getPresenter();
+        }
+        throw new IllegalArgumentException(
+                "ObjectAdapter require that ViewHolder implement PresenterProvider or inherit from BaseViewHolder"
+        );
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Object item = get(position);
-        holder.getPresenter().onBindViewHolder(holder, item);
+        getPresenter(holder).onBindViewHolder(holder, item);
     }
 
     @Override
     public void onViewRecycled(ViewHolder holder) {
         super.onViewRecycled(holder);
-        holder.getPresenter().onUnbindViewHolder(holder);
+        getPresenter(holder).onUnbindViewHolder(holder);
     }
 
     @Override
     public void onViewAttachedToWindow(ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        holder.getPresenter().onViewAttachedToWindow(holder);
+        getPresenter(holder).onViewAttachedToWindow(holder);
     }
 
     @Override
     public void onViewDetachedFromWindow(ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.getPresenter().onViewDetachedFromWindow(holder);
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private final Presenter mPresenter;
-
-        public ViewHolder(View itemView, Presenter presenter) {
-            super(itemView);
-            mPresenter = presenter;
-        }
-
-        public Presenter getPresenter() {
-            return mPresenter;
-        }
+        getPresenter(holder).onViewDetachedFromWindow(holder);
     }
 }

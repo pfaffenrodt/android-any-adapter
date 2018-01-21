@@ -18,6 +18,7 @@ import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 
 
 /**
@@ -28,7 +29,7 @@ import android.view.ViewGroup;
  * {@link ObjectAdapter} which refers to a Presenter (or {@link PresenterSelector}) instance.
  *
  * <p>
- * Presenters should be stateless.  Presenters typically extend {@link ObjectAdapter.ViewHolder} to store all
+ * Presenters should be stateless.  Presenters typically extend {@link android.support.v7.widget.RecyclerView.ViewHolder} to store all
  * necessary view state information, such as references to child views to be used when
  * binding to avoid expensive calls to {@link View#findViewById(int)}.
  * </p>
@@ -74,12 +75,12 @@ public abstract class Presenter{
     /**
      * Creates a new {@link View}.
      */
-    public ObjectAdapter.ViewHolder onCreateViewHolder(ViewGroup parent){
+    public ViewHolder onCreateViewHolder(ViewGroup parent){
         View itemView = inflateItemLayout(parent);
         return onCreateViewHolder(itemView, parent);
     }
 
-    public abstract ObjectAdapter.ViewHolder onCreateViewHolder(View itemView, ViewGroup parent);
+    public abstract ViewHolder onCreateViewHolder(View itemView, ViewGroup parent);
 
     private View inflateItemLayout(ViewGroup parent) {
         return LayoutInflater.from(parent.getContext())
@@ -88,26 +89,26 @@ public abstract class Presenter{
     /**
      * Binds a {@link View} to an item.
      */
-    public abstract void onBindViewHolder(ObjectAdapter.ViewHolder viewHolder, Object item);
+    public abstract void onBindViewHolder(ViewHolder holder, Object item);
 
     /**
      * Unbinds a {@link View} from an item. Any expensive references may be
      * released here, and any fields that are not bound for every item should be
      * cleared here.
      */
-    public void onUnbindViewHolder(ObjectAdapter.ViewHolder viewHolder){}
+    public void onUnbindViewHolder(ViewHolder holder){}
 
     /**
      * Called when a view created by this presenter has been attached to a window.
      *
      * <p>This can be used as a reasonable signal that the view is about to be seen
      * by the user. If the adapter previously freed any resources in
-     * {@link #onViewDetachedFromWindow(ObjectAdapter.ViewHolder)}
+     * {@link #onViewDetachedFromWindow(ViewHolder)}
      * those resources should be restored here.</p>
      *
      * @param holder Holder of the view being attached
      */
-    public void onViewAttachedToWindow(ObjectAdapter.ViewHolder holder) {
+    public void onViewAttachedToWindow(ViewHolder holder) {
     }
     /**
      * Called when a view created by this presenter has been detached from its window.
@@ -118,7 +119,7 @@ public abstract class Presenter{
      *
      * @param holder Holder of the view being detached
      */
-    public void onViewDetachedFromWindow(ObjectAdapter.ViewHolder holder) {
+    public void onViewDetachedFromWindow(ViewHolder holder) {
     }
 
     /**
@@ -131,7 +132,7 @@ public abstract class Presenter{
      * @param holder The view holder containing the view(s) on which the listener should be set.
      * @param listener The click listener to be set.
      */
-    public void setOnClickListener(ObjectAdapter.ViewHolder holder, View.OnClickListener listener) {
+    public void setOnClickListener(ViewHolder holder, View.OnClickListener listener) {
         holder.itemView.setOnClickListener(listener);
     }
 }

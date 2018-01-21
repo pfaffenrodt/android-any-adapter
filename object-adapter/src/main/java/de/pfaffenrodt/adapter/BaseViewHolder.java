@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 Dimitri Pfaffenrodt
+ * Copyright (C) 2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -11,24 +12,25 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.pfaffenrodt.adapter
+package de.pfaffenrodt.adapter;
 
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 /**
- * Simple Placeholder if no Presenter matched.
- * Placeholder to support using not null properties.
+ * ViewHolder of RecyclerView that holds also reference to its presenter
  */
-class NoPresenter : Presenter() {
+public class BaseViewHolder extends RecyclerView.ViewHolder implements PresenterProvider{
 
-    override val layoutId: Int
-        get() = R.layout.no_presenter_layout
+    private final Presenter mPresenter;
 
-    override fun onCreateViewHolder(itemView: View, parent: ViewGroup): RecyclerView.ViewHolder {
-        return BaseViewHolder(itemView, this)
+    public BaseViewHolder(View itemView, Presenter presenter) {
+        super(itemView);
+        mPresenter = presenter;
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any) {}
+    @Override
+    public Presenter getPresenter() {
+        return mPresenter;
+    }
 }

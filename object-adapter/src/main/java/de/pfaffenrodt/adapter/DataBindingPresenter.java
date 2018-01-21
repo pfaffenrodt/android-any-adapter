@@ -16,6 +16,7 @@ package de.pfaffenrodt.adapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -80,12 +81,12 @@ public class DataBindingPresenter extends Presenter{
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(View itemView, ViewGroup parent) {
-        return new ViewHolder(DataBindingUtil.bind(itemView), this);
+    public RecyclerView.ViewHolder onCreateViewHolder(View itemView, ViewGroup parent) {
+        return new ViewHolder(DataBindingUtil.bind(itemView));
     }
 
     @Override
-    public void onBindViewHolder(ObjectAdapter.ViewHolder viewHolder, Object item) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Object item) {
         ViewHolder bindingViewHolder = (ViewHolder) viewHolder;
         onBindItem(bindingViewHolder.mBinding, item);
         onBindGlobalElements(bindingViewHolder.mBinding);
@@ -117,17 +118,22 @@ public class DataBindingPresenter extends Presenter{
     }
 
     @Override
-    public void onUnbindViewHolder(ObjectAdapter.ViewHolder viewHolder) {
+    public void onUnbindViewHolder(RecyclerView.ViewHolder viewHolder) {
         super.onUnbindViewHolder(viewHolder);
         ViewHolder bindingViewHolder = (ViewHolder) viewHolder;
         bindingViewHolder.mBinding.unbind();
     }
 
-    public class ViewHolder extends ObjectAdapter.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements PresenterProvider{
         ViewDataBinding mBinding;
-        public ViewHolder(ViewDataBinding binding, Presenter presenter){
-            super(binding.getRoot(), presenter);
+        public ViewHolder(ViewDataBinding binding){
+            super(binding.getRoot());
             mBinding = binding;
+        }
+
+        @Override
+        public Presenter getPresenter() {
+            return DataBindingPresenter.this;
         }
     }
 }
