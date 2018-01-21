@@ -1,5 +1,7 @@
 package de.pfaffenrodt.adapter
 
+import android.support.v7.widget.RecyclerView
+
 /**
  * Presenter support callback of clicking item
  */
@@ -7,11 +9,11 @@ abstract class ClickablePresenter(
     private var mClickHandler: EventHandler? = null
 ) : Presenter() {
 
-    override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any) {
         viewHolder.itemView.setOnClickListener({ mClickHandler?.onEvent(viewHolder.itemView, item)})
     }
 
-    override fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {
+    override fun onUnbindViewHolder(viewHolder: RecyclerView.ViewHolder) {
         super.onUnbindViewHolder(viewHolder)
         viewHolder.itemView.setOnClickListener(null)
     }

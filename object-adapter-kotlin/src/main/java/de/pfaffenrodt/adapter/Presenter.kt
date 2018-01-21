@@ -15,6 +15,7 @@
 package de.pfaffenrodt.adapter
 
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,7 @@ import android.view.ViewGroup
  *
  *
  *
- * Presenters should be stateless.  Presenters typically extend [AnyAdapter.ViewHolder] to store all
+ * Presenters should be stateless.  Presenters typically extend [android.support.v7.widget.RecyclerView.ViewHolder] to store all
  * necessary view state information, such as references to child views to be used when
  * binding to avoid expensive calls to [View.findViewById].
  *
@@ -74,12 +75,12 @@ abstract class Presenter {
     /**
      * Creates a new [View].
      */
-    fun onCreateViewHolder(parent: ViewGroup): AnyAdapter.ViewHolder {
+    fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val itemView = inflateItemLayout(parent)
         return onCreateViewHolder(itemView, parent)
     }
 
-    abstract fun onCreateViewHolder(itemView: View, parent: ViewGroup): AnyAdapter.ViewHolder
+    abstract fun onCreateViewHolder(itemView: View, parent: ViewGroup): RecyclerView.ViewHolder
 
     private fun inflateItemLayout(parent: ViewGroup): View {
         return LayoutInflater.from(parent.context)
@@ -89,14 +90,14 @@ abstract class Presenter {
     /**
      * Binds a [View] to an item.
      */
-    abstract fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any)
+    abstract fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any)
 
     /**
      * Unbinds a [View] from an item. Any expensive references may be
      * released here, and any fields that are not bound for every item should be
      * cleared here.
      */
-    open fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {}
+    open fun onUnbindViewHolder(viewHolder: RecyclerView.ViewHolder) {}
 
     /**
      * Called when a view created by this presenter has been attached to a window.
@@ -109,7 +110,7 @@ abstract class Presenter {
      *
      * @param holder Holder of the view being attached
      */
-    fun onViewAttachedToWindow(holder: AnyAdapter.ViewHolder) {}
+    fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {}
 
     /**
      * Called when a view created by this presenter has been detached from its window.
@@ -121,7 +122,7 @@ abstract class Presenter {
      *
      * @param holder Holder of the view being detached
      */
-    fun onViewDetachedFromWindow(holder: AnyAdapter.ViewHolder) {}
+    fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {}
 
     /**
      * Called to set a click listener for the given view holder.
@@ -133,7 +134,7 @@ abstract class Presenter {
      * @param holder The view holder containing the view(s) on which the listener should be set.
      * @param listener The click listener to be set.
      */
-    fun setOnClickListener(holder: AnyAdapter.ViewHolder, listener: View.OnClickListener) {
+    fun setOnClickListener(holder: RecyclerView.ViewHolder, listener: View.OnClickListener) {
         holder.itemView.setOnClickListener(listener)
     }
 }

@@ -82,11 +82,11 @@ class MainActivity : AppCompatActivity() {
         override val layoutId: Int
             get() = R.layout.item_sample_a
 
-        override fun onCreateViewHolder(itemView: View, parent: ViewGroup): AnyAdapter.ViewHolder {
+        override fun onCreateViewHolder(itemView: View, parent: ViewGroup): RecyclerView.ViewHolder {
             return TextViewHolder(itemView, this)
         }
 
-        override fun onBindViewHolder(viewHolder: AnyAdapter.ViewHolder, item: Any) {
+        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any) {
             if(item is BaseItem<*>) {
                 (viewHolder as TextViewHolder).mTextView.text = item.value.toString()
             } else {
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        override fun onUnbindViewHolder(viewHolder: AnyAdapter.ViewHolder) {
+        override fun onUnbindViewHolder(viewHolder: RecyclerView.ViewHolder) {
 
         }
     }
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     internal inner class TextViewHolder(itemView: View, presenter: Presenter)
-        : AnyAdapter.ViewHolder(itemView, presenter) {
+        : BaseViewHolder(itemView, presenter) {
         var mTextView: TextView = itemView.findViewById<View>(R.id.text) as TextView
     }
 }

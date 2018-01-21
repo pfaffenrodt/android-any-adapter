@@ -14,9 +14,9 @@
 package de.pfaffenrodt.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.ViewHolder
 import android.util.Log
 import android.util.SparseArray
-import android.view.View
 import android.view.ViewGroup
 
 import java.util.ArrayList
@@ -25,7 +25,7 @@ import java.util.ArrayList
  * Base class for an Adapter.  Provides access to a data model and is
  * decoupled from the presentation of the items via [PresenterSelector].
  */
-abstract class AnyAdapter : RecyclerView.Adapter<AnyAdapter.ViewHolder> {
+abstract class AnyAdapter : RecyclerView.Adapter<ViewHolder> {
 
     companion object {
         private val TAG = "AnyAdapter"
@@ -83,25 +83,32 @@ abstract class AnyAdapter : RecyclerView.Adapter<AnyAdapter.ViewHolder> {
         return getPresenterByViewType(viewType).onCreateViewHolder(parent)
     }
 
+    protected fun getPresenter(holder: ViewHolder): Presenter {
+        if (holder is PresenterProvider) {
+            return (holder as PresenterProvider).presenter
+        }
+        throw IllegalArgumentException(
+                "ObjectAdapter require that ViewHolder implement PresenterProvider or inherit from BaseViewHolder"
+        )
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = get(position)
-        holder.presenter.onBindViewHolder(holder, item)
+        getPresenter(holder).onBindViewHolder(holder, item)
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        holder.presenter.onUnbindViewHolder(holder)
+        getPresenter(holder).onUnbindViewHolder(holder)
     }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder.presenter.onViewAttachedToWindow(holder)
+        getPresenter(holder).onViewAttachedToWindow(holder)
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder.presenter.onViewDetachedFromWindow(holder)
+        getPresenter(holder).onViewDetachedFromWindow(holder)
     }
-
-    open class ViewHolder(itemView: View, val presenter: Presenter) : RecyclerView.ViewHolder(itemView)
 }
