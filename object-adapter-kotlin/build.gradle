@@ -41,8 +41,8 @@ dependencies {
     }
     testImplementation junit5()
     testCompileOnly "de.mannodermaus.gradle.plugins:android-junit5-embedded-runtime:1.0.0-RC3-rev1"
-    testCompile 'org.mockito:mockito-core:2.5.0'
-    testCompile "com.nhaarman:mockito-kotlin:1.1.0"
+    testImplementation 'org.mockito:mockito-core:2.5.0'
+    testImplementation "com.nhaarman:mockito-kotlin:1.1.0"
 }
 junitPlatform {
     filters {
