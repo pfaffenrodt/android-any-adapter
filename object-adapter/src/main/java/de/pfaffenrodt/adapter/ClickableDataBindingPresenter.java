@@ -1,6 +1,7 @@
 package de.pfaffenrodt.adapter;
 
 import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -30,7 +31,7 @@ public class ClickableDataBindingPresenter extends DataBindingPresenter {
     }
 
     @Override
-    public void onBindViewHolder(final ObjectAdapter.ViewHolder viewHolder, final Object item) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final Object item) {
         super.onBindViewHolder(viewHolder, item);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +42,7 @@ public class ClickableDataBindingPresenter extends DataBindingPresenter {
     }
 
     @Override
-    public void onUnbindViewHolder(ObjectAdapter.ViewHolder viewHolder) {
+    public void onUnbindViewHolder(RecyclerView.ViewHolder viewHolder) {
         super.onUnbindViewHolder(viewHolder);
         viewHolder.itemView.setOnClickListener(null);
     }

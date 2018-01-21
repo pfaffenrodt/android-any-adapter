@@ -13,8 +13,8 @@
  */
 package de.pfaffenrodt.adapter.sample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,10 +25,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import de.pfaffenrodt.adapter.ArrayObjectAdapter;
+import de.pfaffenrodt.adapter.BaseViewHolder;
 import de.pfaffenrodt.adapter.ClassPresenterSelector;
-import de.pfaffenrodt.adapter.EventHandler;
 import de.pfaffenrodt.adapter.DataBindingPresenter;
-import de.pfaffenrodt.adapter.ObjectAdapter;
+import de.pfaffenrodt.adapter.EventHandler;
 import de.pfaffenrodt.adapter.Presenter;
 
 public class MainActivity extends AppCompatActivity {
@@ -78,17 +78,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public ObjectAdapter.ViewHolder onCreateViewHolder(View itemView, ViewGroup parent) {
+        public RecyclerView.ViewHolder onCreateViewHolder(View itemView, ViewGroup parent) {
             return new TextViewHolder(itemView, this);
         }
 
         @Override
-        public void onBindViewHolder(ObjectAdapter.ViewHolder viewHolder, Object item) {
+        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Object item) {
             ((TextViewHolder)viewHolder).mTextView.setText(item.toString());
         }
 
         @Override
-        public void onUnbindViewHolder(ObjectAdapter.ViewHolder viewHolder) {
+        public void onUnbindViewHolder(RecyclerView.ViewHolder viewHolder) {
 
         }
     }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class TextViewHolder extends ObjectAdapter.ViewHolder{
+    class TextViewHolder extends BaseViewHolder{
         TextView mTextView;
 
         public TextViewHolder(View itemView, Presenter presenter) {
