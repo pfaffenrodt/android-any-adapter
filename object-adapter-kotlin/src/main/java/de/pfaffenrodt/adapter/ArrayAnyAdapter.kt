@@ -14,8 +14,8 @@
  */
 package de.pfaffenrodt.adapter
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.util.ListUpdateCallback
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListUpdateCallback
 import android.util.Log
 import java.util.*
 

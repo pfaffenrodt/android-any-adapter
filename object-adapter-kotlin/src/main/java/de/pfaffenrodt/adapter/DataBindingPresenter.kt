@@ -13,12 +13,12 @@
  */
 package de.pfaffenrodt.adapter
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v4.util.SparseArrayCompat
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.SparseArrayCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
 /**
  * Presenter used with dataBinding.
@@ -59,7 +59,7 @@ open class DataBindingPresenter(
     }
 
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup): ViewHolder {
-        return ViewHolder(DataBindingUtil.bind(itemView), this)
+        return ViewHolder(DataBindingUtil.bind(itemView)!!, this)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any) {
