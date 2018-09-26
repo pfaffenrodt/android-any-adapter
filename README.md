@@ -6,6 +6,12 @@ Kotlin [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-
 
 Adapter that is similar to the ObjectAdapter (ArrayObjectAdapter) from the Leanback support library.
 
+## ChangeLog
+
+1.4
+   - migrate to androidx
+
+
 ## Gradle
 Java Version
 ```gradle
