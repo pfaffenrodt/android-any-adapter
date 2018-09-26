@@ -2,26 +2,29 @@
 buildscript {
     ext {
 
-        android_plugin_version = '3.0.1'
-        kotlin_version = '1.2.20'
-        spek_version = '1.1.5'
-        android_support_version = '27.0.2'
-        buildToolsVersion = "27.0.1"
+        android_plugin_version = '3.2.0'
+        kotlin_version = '1.2.71'
+        spek_version = '2.0.0-alpha.2'
+        android_support_version = '1.0.0'
+        buildToolsVersion = "28.0.2"
         minSdkVersion = 14
-        compileSdkVersion = 27
-        targetSdkVersion = 27
+        compileSdkVersion = 28
+        targetSdkVersion = 28
     }
     repositories {
         jcenter()
         google()
+        maven {
+            url  "https://dl.bintray.com/spekframework/spek-dev"
+        }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$android_plugin_version"
+        classpath "com.android.tools.build:gradle:3.2.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.15"
-        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.0.0"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.2.0.0"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -31,6 +34,9 @@ allprojects {
     repositories {
         jcenter()
         google()
+        maven {
+            url  "https://dl.bintray.com/spekframework/spek-dev"
+        }
     }
 }
 

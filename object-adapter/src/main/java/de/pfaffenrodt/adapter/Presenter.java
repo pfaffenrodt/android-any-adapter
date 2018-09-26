@@ -14,22 +14,23 @@
  */
 package de.pfaffenrodt.adapter;
 
-import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView.ViewHolder;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 
 /**
  * A Presenter is used to generate {@link View}s and bind Objects to them on
  * demand. It is closely related to the concept of an {@link
- * android.support.v7.widget.RecyclerView.Adapter Adapter}, but is
+ * androidx.recyclerview.widget.RecyclerView.Adapter Adapter}, but is
  * not position-based.  The leanback framework implements the adapter concept using
  * {@link ObjectAdapter} which refers to a Presenter (or {@link PresenterSelector}) instance.
  *
  * <p>
- * Presenters should be stateless.  Presenters typically extend {@link android.support.v7.widget.RecyclerView.ViewHolder} to store all
+ * Presenters should be stateless.  Presenters typically extend {@link androidx.recyclerview.widget.RecyclerView.ViewHolder} to store all
  * necessary view state information, such as references to child views to be used when
  * binding to avoid expensive calls to {@link View#findViewById(int)}.
  * </p>

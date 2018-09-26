@@ -14,11 +14,11 @@
  */
 package de.pfaffenrodt.adapter
 
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 
 
 /**
@@ -29,7 +29,7 @@ import android.view.ViewGroup
  *
  *
  *
- * Presenters should be stateless.  Presenters typically extend [android.support.v7.widget.RecyclerView.ViewHolder] to store all
+ * Presenters should be stateless.  Presenters typically extend [androidx.recyclerview.widget.RecyclerView.ViewHolder] to store all
  * necessary view state information, such as references to child views to be used when
  * binding to avoid expensive calls to [View.findViewById].
  *

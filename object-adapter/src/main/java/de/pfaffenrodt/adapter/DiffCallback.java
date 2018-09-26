@@ -15,17 +15,18 @@
  * limitations under the License.
  */
 package de.pfaffenrodt.adapter;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java.util.List;
 /**
  * Callback that informs {@link ArrayObjectAdapter} how to compute list updates when using
- * {@link android.support.v7.util.DiffUtil} in {@link ArrayObjectAdapter#setItems(List,
+ * {@link androidx.recyclerview.widget.DiffUtil} in {@link ArrayObjectAdapter#setItems(List,
  * DiffCallback)} method.
  * <p>
  * The {@link ArrayObjectAdapter#setItems(List,
  * DiffCallback)} method will pass items from different
  * lists to this callback in order to implement
- * the {@link android.support.v7.util.DiffUtil.Callback} it uses to compute differences between
+ * the {@link androidx.recyclerview.widget.DiffUtil.Callback} it uses to compute differences between
  * lists.
  *
  * @param <Value> Type of items to compare.
@@ -37,7 +38,7 @@ public abstract class DiffCallback<Value> {
      * @param oldItem The item in the old list.
      * @param newItem The item in the new list.
      * @return True if the two items represent the same object or false if they are different.
-     * @see android.support.v7.util.DiffUtil.Callback#areItemsTheSame(int, int)
+     * @see androidx.recyclerview.widget.DiffUtil.Callback#areItemsTheSame(int, int)
      */
     public abstract boolean areItemsTheSame(@NonNull Value oldItem, @NonNull Value newItem);
     /**
@@ -47,13 +48,13 @@ public abstract class DiffCallback<Value> {
      * @param oldItem The item in the old list.
      * @param newItem The item in the new list.
      * @return True if the contents of the items are the same or false if they are different.
-     * @see android.support.v7.util.DiffUtil.Callback#areContentsTheSame(int, int)
+     * @see androidx.recyclerview.widget.DiffUtil.Callback#areContentsTheSame(int, int)
      */
     public abstract boolean areContentsTheSame(@NonNull Value oldItem, @NonNull Value newItem);
     /**
      * Called to get a change payload between an old and new version of an item.
      *
-     * @see android.support.v7.util.DiffUtil.Callback#getChangePayload(int, int)
+     * @see androidx.recyclerview.widget.DiffUtil.Callback#getChangePayload(int, int)
      */
     @SuppressWarnings("WeakerAccess")
     public Object getChangePayload(@NonNull Value oldItem, @NonNull Value newItem) {

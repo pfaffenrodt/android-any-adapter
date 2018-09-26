@@ -6,6 +6,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
     }
     buildTypes {
         release {
@@ -17,8 +19,8 @@ android {
 }
 
 dependencies {
-    compileOnly "com.android.support:support-v4:$android_support_version"
-    compileOnly "com.android.support:recyclerview-v7:$android_support_version"
+    compileOnly "androidx.appcompat:appcompat:$android_support_version"
+    compileOnly "androidx.recyclerview:recyclerview:$android_support_version"
     testImplementation 'junit:junit:4.12'
 }
 

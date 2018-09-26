@@ -2,28 +2,36 @@ package de.pfaffenrodt.adapter
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.nhaarman.mockito_kotlin.mock
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
 
-import org.junit.Assert.*
+import org.junit.jupiter.api.Assertions.*
 
-class NoPresenterTest : Spek({
-    given("a NoPresenter") {
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.gherkin.Feature
 
+object NoPresenterTest : Spek({
+
+    Feature("NoPresenter") {
         val noPresenter = NoPresenter()
+        var viewHolder : RecyclerView.ViewHolder? = null
 
-        it("should return id of no_presenter_layout") {
-            assertEquals(R.layout.no_presenter_layout, noPresenter.layoutId)
-        }
-        on("create ViewHolder") {
-            val mockedView : View = mock()
-            val mockedContainer : ViewGroup = mock()
-            val viewHolder = noPresenter.onCreateViewHolder(mockedView, mockedContainer)
-            it("should have reference to NoPresenter") {
-                assertEquals(noPresenter, viewHolder.presenter)
+        Scenario("Default") {
+            Given("A NoPresenter") {
+                noPresenter
+            }
+            Then("should return id of no_presenter_layout") {
+                assertEquals(R.layout.no_presenter_layout, noPresenter.layoutId)
+            }
+            When("create a ViewHolder") {
+                val mockedView: View = mock()
+                val mockedContainer: ViewGroup = mock()
+                viewHolder = noPresenter.onCreateViewHolder(mockedView, mockedContainer)
+            }
+            Then(" it should have reference to NoPresenter") {
+                assertTrue(viewHolder is PresenterProvider)
+                val presenterProvider : PresenterProvider = viewHolder as PresenterProvider
+                assertEquals(noPresenter, presenterProvider.presenter)
             }
         }
    }
