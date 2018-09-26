@@ -19,53 +19,47 @@ android {
         }
     }
     dataBinding.enabled = true
+
+    testOptions {
+        junitPlatform {
+            filters {
+                engines {
+                    include 'spek2'
+                }
+            }
+            jacocoOptions {
+                // here goes all jacoco config, for example
+                html.enabled = true
+                xml.enabled = false
+                csv.enabled = false
+                unitTests.all {
+                    testLogging.events = ["passed", "skipped", "failed"]
+                }
+            }
+        }
+    }
 }
 
 dependencies {
     compileOnly "androidx.recyclerview:recyclerview:$android_support_version"
     testImplementation "androidx.recyclerview:recyclerview:$android_support_version"
-    kapt "androidx.databinding:compiler:3.2.0-alpha11"
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    //testImplementation 'junit:junit:4.12'
 
-//    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-//    testImplementation ("org.jetbrains.spek:spek-api:$spek_version") {
-//        exclude group: 'org.jetbrains.kotlin'
-//    }
-//    testImplementation ("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
-//        exclude group: 'org.junit.platform'
-//        exclude group: 'org.jetbrains.kotlin'
-//    }
-//    testImplementation junit5()
-//    testCompileOnly "de.mannodermaus.gradle.plugins:android-junit5-embedded-runtime:1.0.0-RC3-rev1"
-//    testImplementation 'org.mockito:mockito-core:2.5.0'
-//    testImplementation "com.nhaarman:mockito-kotlin:1.1.0"
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek_version"
+    testImplementation 'org.mockito:mockito-core:2.22.0'
+    testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.2.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.2.0"
+    // (Optional) If you need "Parameterized Tests"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.2.0"
+
+    // (Optional) If you also have JUnit 4-based tests
+    testImplementation "junit:junit:4.12"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.2.0"
 }
-//junitPlatform {
-//    filters {
-//        engines {
-//            include "spek"
-//        }
-//    }
-//}
-//afterEvaluate {
-//    android.buildTypes.each {
-//        def name = it.name
-//
-//        def copyTestTask = project.task(type: Copy, "copyKotlin${name.capitalize()}UnitTestClasses") {
-//            from "build/tmp/kotlin-classes/${name}UnitTest"
-//            into "build/intermediates/classes/test/$name"
-//        }
-//        project.tasks.getByName("compile${name.capitalize()}UnitTestKotlin").finalizedBy copyTestTask
-//
-//        def copyMainTask = project.task(type: Copy, "copyKotlin${name.capitalize()}Classes") {
-//            from "build/tmp/kotlin-classes/${name}"
-//            into "build/intermediates/classes/$name"
-//        }
-//        project.tasks.getByName("compile${name.capitalize()}Kotlin").finalizedBy copyMainTask
-//    }
-//}
 apply from: 'publish.gradle'
