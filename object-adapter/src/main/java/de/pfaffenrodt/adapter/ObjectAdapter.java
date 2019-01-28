@@ -51,11 +51,29 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ViewHolder> {
     public ObjectAdapter() {
     }
 
-    @Deprecated
-    public Object getItem(int position) {
-        return get(position);
+    /**
+     * Returns the {@link Presenter} for the given item from the adapter.
+     */
+    public final Presenter getPresenter(Object item) {
+        if (mPresenterSelector == null) {
+            throw new IllegalStateException("Presenter selector must not be null");
+        }
+        return mPresenterSelector.getPresenter(item);
     }
 
+    @Override
+    public int getItemCount() {
+        return size();
+    }
+
+    /**
+     * Returns the number of items in the adapter.
+     */
+    public abstract int size();
+
+    /**
+     * Returns the item for the given position.
+     */
     public abstract Object get(int position);
 
     @Override
@@ -71,13 +89,6 @@ public abstract class ObjectAdapter extends RecyclerView.Adapter<ViewHolder> {
             onAddPresenter(presenter, type);
         }
         return type;
-    }
-
-    public final Presenter getPresenter(Object item) {
-        if (mPresenterSelector == null) {
-            throw new IllegalStateException("Presenter selector must not be null");
-        }
-        return mPresenterSelector.getPresenter(item);
     }
 
     protected void onAddPresenter(Presenter presenter, int type) {

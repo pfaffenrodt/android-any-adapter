@@ -48,7 +48,7 @@ open class ArrayAnyAdapter : AnyAdapter {
      */
     constructor() : super()
 
-    override fun getItemCount(): Int {
+    override fun size(): Int {
         return mItems.size
     }
 
@@ -201,6 +201,37 @@ open class ArrayAnyAdapter : AnyAdapter {
         notifyItemRangeRemoved(0, itemCount)
     }
 
+    internal val mListUpdateCallback: ListUpdateCallback by lazy {
+        return@lazy object : ListUpdateCallback {
+            override fun onInserted(position: Int, count: Int) {
+                if (DEBUG) {
+                    Log.d(TAG, "onInserted")
+                }
+                notifyItemRangeInserted(position, count)
+            }
+
+            override fun onRemoved(position: Int, count: Int) {
+                if (DEBUG) {
+                    Log.d(TAG, "onRemoved")
+                }
+                notifyItemRangeRemoved(position, count)
+            }
+
+            override fun onMoved(fromPosition: Int, toPosition: Int) {
+                if (DEBUG) {
+                    Log.d(TAG, "onMoved")
+                }
+                notifyItemMoved(fromPosition, toPosition)
+            }
+
+            override fun onChanged(position: Int, count: Int, payload: Any?) {
+                if (DEBUG) {
+                    Log.d(TAG, "onChanged")
+                }
+                notifyItemRangeChanged(position, count, payload)
+            }
+        }
+    }
     /**
      * Set a new item list to adapter. The DiffUtil will compute the difference and dispatch it to
      * specified position.
@@ -247,34 +278,7 @@ open class ArrayAnyAdapter : AnyAdapter {
         mItems.clear()
         mItems.addAll(itemList)
         // dispatch diff result
-        diffResult.dispatchUpdatesTo(object : ListUpdateCallback {
-            override fun onInserted(position: Int, count: Int) {
-                if (DEBUG) {
-                    Log.d(TAG, "onInserted")
-                }
-                notifyItemRangeInserted(position, count)
-            }
-
-            override fun onRemoved(position: Int, count: Int) {
-                if (DEBUG) {
-                    Log.d(TAG, "onRemoved")
-                }
-                notifyItemRangeRemoved(position, count)
-            }
-
-            override fun onMoved(fromPosition: Int, toPosition: Int) {
-                if (DEBUG) {
-                    Log.d(TAG, "onMoved")
-                }
-                notifyItemMoved(fromPosition, toPosition)
-            }
-
-            override fun onChanged(position: Int, count: Int, payload: Any?) {
-                if (DEBUG) {
-                    Log.d(TAG, "onChanged")
-                }
-                notifyItemRangeChanged(position, count, payload)
-            }
-        })
+        diffResult.dispatchUpdatesTo(mListUpdateCallback)
+        mOldItems.clear()
     }
 }

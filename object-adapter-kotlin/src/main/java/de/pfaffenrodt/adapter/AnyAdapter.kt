@@ -46,10 +46,14 @@ abstract class AnyAdapter : RecyclerView.Adapter<ViewHolder> {
 
     constructor() : this(NoPresenter())
 
-    @Deprecated("use get() instead", ReplaceWith("get(position)"))
-    fun getItem(position: Int): Any {
-        return get(position)
+    override fun getItemCount(): Int {
+        return size()
     }
+
+    /**
+     * Returns the number of items in the adapter.
+     */
+    abstract fun size(): Int
 
     abstract fun get(position: Int) : Any
 
