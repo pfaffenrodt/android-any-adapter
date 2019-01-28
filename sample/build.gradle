@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "de.pfaffenrodt.adapter.sample"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -23,11 +22,12 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha4', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "androidx.appcompat:appcompat:$android_support_version"
-    implementation "androidx.recyclerview:recyclerview:$android_support_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerView_version"
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycleVersion" // transient dependency of dataBinding
     testImplementation 'junit:junit:4.12'
     implementation project(':object-adapter')
 }

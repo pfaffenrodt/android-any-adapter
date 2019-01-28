@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -19,8 +18,7 @@ android {
 }
 
 dependencies {
-    compileOnly "androidx.appcompat:appcompat:$android_support_version"
-    compileOnly "androidx.recyclerview:recyclerview:$android_support_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerView_version"
     testImplementation 'junit:junit:4.12'
 }
 
