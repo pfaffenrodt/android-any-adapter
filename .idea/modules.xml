@@ -3,10 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-object-adapter.iml" filepath="$PROJECT_DIR$/android-object-adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/object-adapter/object-adapter.iml" filepath="$PROJECT_DIR$/object-adapter/object-adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/object-adapter-kotlin/object-adapter-kotlin.iml" filepath="$PROJECT_DIR$/object-adapter-kotlin/object-adapter-kotlin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample-kotlin/sample-kotlin.iml" filepath="$PROJECT_DIR$/sample-kotlin/sample-kotlin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-object-adapter.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/android-object-adapter.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/object-adapter/android-object-adapter.object-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/object-adapter/android-object-adapter.object-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/object-adapter-kotlin/android-object-adapter.object-adapter-kotlin.iml" filepath="$PROJECT_DIR$/.idea/modules/object-adapter-kotlin/android-object-adapter.object-adapter-kotlin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/android-object-adapter.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/android-object-adapter.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample-kotlin/android-object-adapter.sample-kotlin.iml" filepath="$PROJECT_DIR$/.idea/modules/sample-kotlin/android-object-adapter.sample-kotlin.iml" />
     </modules>
   </component>
 </project>

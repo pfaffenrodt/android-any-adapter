@@ -5,34 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nhaarman.mockito_kotlin.mock
 
-import org.junit.jupiter.api.Assertions.*
+import com.google.common.truth.Truth.assertThat
+import org.junit.Test
 
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.gherkin.Feature
+class NoPresenterTest{
+    private val givenPresenter = NoPresenter()
 
-object NoPresenterTest : Spek({
+    @Test
+    fun it_provide_layoutId() {
+        assertThat(givenPresenter.layoutId).isEqualTo(R.layout.no_presenter_layout)
+    }
 
-    Feature("NoPresenter") {
-        val noPresenter = NoPresenter()
-        var viewHolder : RecyclerView.ViewHolder? = null
-
-        Scenario("Default") {
-            Given("A NoPresenter") {
-                noPresenter
-            }
-            Then("should return id of no_presenter_layout") {
-                assertEquals(R.layout.no_presenter_layout, noPresenter.layoutId)
-            }
-            When("create a ViewHolder") {
-                val mockedView: View = mock()
-                val mockedContainer: ViewGroup = mock()
-                viewHolder = noPresenter.onCreateViewHolder(mockedView, mockedContainer)
-            }
-            Then(" it should have reference to NoPresenter") {
-                assertTrue(viewHolder is PresenterProvider)
-                val presenterProvider : PresenterProvider = viewHolder as PresenterProvider
-                assertEquals(noPresenter, presenterProvider.presenter)
-            }
-        }
-   }
-})
+    @Test
+    fun viewHolder_provides_presenter() {
+        val mockedView: View = mock()
+        val mockedContainer: ViewGroup = mock()
+        val viewHolder = givenPresenter.onCreateViewHolder(mockedView, mockedContainer)
+        assertThat(viewHolder).isInstanceOf(PresenterProvider::class.java)
+        val presenterProvider : PresenterProvider = viewHolder as PresenterProvider
+        assertThat(presenterProvider.presenter).isEqualTo(givenPresenter)
+    }
+}

@@ -1,30 +1,28 @@
 package de.pfaffenrodt.adapter
 
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockito_kotlin.mock
+import org.junit.Test
 
-import org.junit.jupiter.api.Assertions.*
+class SinglePresenterSelectorTest {
 
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.gherkin.Feature
+    private val givenPresenter: Presenter = mock()
+    private val givenPresenterSelector = SinglePresenterSelector(givenPresenter)
+    private val wrongPresenter: Presenter = mock()
 
-object SinglePresenterSelectorTest: Spek({
-    Feature("Single Presenter")  {
-        Scenario("Default") {
-            val presenter: Presenter = mock()
-            val wrongPresenter: Presenter = mock()
-            val instance = SinglePresenterSelector(presenter)
-            Given("a SinglePresenterSelector and a Presenter") {
-                assertTrue(presenter is Presenter)
-                assertTrue(instance is SinglePresenterSelector)
-            }
-            Then("it should only have one presenter") {
-                assertEquals(1, instance.presenters.size)
-            }
-            Then("it should only have that given presenter") {
-                assertEquals(presenter, instance.presenters[0])
-                assertNotEquals(wrongPresenter, instance.presenters[0])
-            }
-        }
+
+    @Test
+    fun it_provide_correct_size_of_presenter()
+    {
+        assertThat(givenPresenterSelector.presenters.size).isEqualTo(1)
     }
-})
+
+    @Test
+    fun it_provide_only_one_presenter() {
+        assertThat(givenPresenterSelector.presenters[0])
+                .isNotEqualTo(wrongPresenter)
+        assertThat(givenPresenterSelector.presenters[0])
+                .isEqualTo(givenPresenter)
+    }
+}
 
