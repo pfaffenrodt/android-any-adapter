@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
  * A ClassPresenterSelector selects a [Presenter] based on the item's
  * Java class.
  */
-class ClassPresenterSelector : PresenterSelector() {
+open class ClassPresenterSelector : PresenterSelector() {
     private val mPresenters = ArrayList<Presenter>()
 
     private val mClassMap = HashMap<Class<*>, Any>()
