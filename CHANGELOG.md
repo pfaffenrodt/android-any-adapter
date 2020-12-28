@@ -1,3 +1,9 @@
+# 1.5.0
+
+* add support for paging adapter with AnyPagingDataAdapter
+* make ClassPresenterSelector open to inherit
+* databinding presenter add support to pass handler as block function
+
 # 1.4.0
 
 * Migrate to androidx

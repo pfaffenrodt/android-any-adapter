@@ -29,6 +29,9 @@ dependencies {
     implementation(Dependencies.Android.recyclerview)
     implementation(Dependencies.Android.appCompat)
     implementation(Dependencies.Android.lifecycleRuntime)
+    implementation(Dependencies.Android.Paging.runtime)
+    implementation(Dependencies.Android.Paging.rxjava3)
+    implementation(Dependencies.rxjava3)
     testImplementation(Dependencies.Test.junit)
 
     implementation(Dependencies.kotlin)

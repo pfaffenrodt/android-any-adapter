@@ -14,108 +14,75 @@
 package de.pfaffenrodt.adapter.sample
 
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.rxjava3.RxPagingSource
+import androidx.paging.rxjava3.flowable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.pfaffenrodt.adapter.*
-
-import java.util.ArrayList
+import de.pfaffenrodt.adapter.sample.presenter.LoadingPresenter
+import de.pfaffenrodt.adapter.sample.presenter.SamplePresenterSelector
+import io.reactivex.rxjava3.core.Single
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-
+    var retried = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val classPresenterSelector = ClassPresenterSelector()
-        classPresenterSelector.addClassPresenter(
-                SampleItemA::class,
-                SamplePresenterA()
-        )
-        classPresenterSelector.addClassPresenter(
-                SampleItemB::class,
-                SamplePresenterB()
-        )
-        classPresenterSelector.addClassPresenter(
-                SampleItemC::class,
-                DataBindingPresenter(R.layout.item_sample_databinding, BR.item)
-        )
 
-        val items = ArrayList<BaseItem<*>>()
-        for (i in 0..49) {
-            when {
-                i % 2 == 0 -> items.add(SampleItemA(i, "fo" +i))
-                i % 3 == 0 -> items.add(SampleItemB(i, i))
-                else -> items.add(SampleItemC(i, "fooo" + i))
-            }
+        val adapter = AnyPagingDataAdapter(
+                presenterSelector = SamplePresenterSelector(),
+                diffCallback = SimpleDiffCallback()
+        )
+        val footerPresenter = LoadingPresenter {
+            retried = true
+            adapter.retry()
+        }
+        recyclerView.adapter = adapter.withLoadStateFooter(footerPresenter)
+
+        val pager = Pager(
+                config = PagingConfig(pageSize = 30),
+                initialKey = 0
+        ) { SamplePagingSource() }
+        pager.flowable
+                .subscribe { pagingData -> adapter.submitData(lifecycle, pagingData) }
+    }
+
+    inner class SamplePagingSource: RxPagingSource<Int, Any>() {
+        init {
         }
 
-        val adapter = ArrayAnyAdapter(classPresenterSelector)
-        adapter.setItems(items)
-        recyclerView.adapter = adapter
-        Handler()
-            .postDelayed (
-            {
-                for(i in 0 until items.size) {
-                    when {
-                        i % 6 == 0 -> items[i] = SampleItemC(i, "baar" + i)
-                        i % 4 == 0 -> items[i] = SampleItemA(i, "baar" + i)
+        override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Any>> {
+            val pageIndex = params.key?: return Single.just(LoadResult.Error(IllegalArgumentException("required key for page")))
+            return Single.just(params).delay(2, TimeUnit.SECONDS)
+                    .map {
+                        if (it.key == 4 && !retried) {
+                            return@map LoadResult.Error(RuntimeException("error to show viewtype"))
+                        }
+                        return@map LoadResult.Page(page(it), prevKey = null, nextKey = pageIndex + 1)
                     }
+        }
+
+        fun page(params: LoadParams<Int>): List<Any> {
+            val pageIndex = params.key ?: return emptyList()
+            val first = pageIndex * params.loadSize
+            val last = first + params.loadSize
+            val items = ArrayList<BaseItem<*>>()
+            for (i in first..last) {
+                when {
+                    i % 2 == 0 -> items.add(SampleItemA(i, "fo" +i))
+                    i % 3 == 0 -> items.add(SampleItemB(i, i))
+                    else -> items.add(SampleItemC(i, "fooo" + i))
                 }
-                items.removeAt(7)
-                items.removeAt(1)
-                items.removeAt(4)
-                adapter.setItems(items, SampleDiffCallback().toAnyTypedDiffCallback())
-            },
-            1000
-        )
-    }
-
-
-    internal open inner class SamplePresenterA : Presenter() {
-        override val layoutId: Int
-            get() = R.layout.item_sample_a
-
-        override fun onCreateViewHolder(itemView: View, parent: ViewGroup): RecyclerView.ViewHolder {
-            return TextViewHolder(itemView, this)
-        }
-
-        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, item: Any) {
-            if(item is BaseItem<*>) {
-                (viewHolder as TextViewHolder).mTextView.text = item.value.toString()
-            } else {
-                (viewHolder as TextViewHolder).mTextView.text = item.toString()
             }
+            return items
         }
-
-        override fun onUnbindViewHolder(viewHolder: RecyclerView.ViewHolder) {
-
-        }
-    }
-
-    internal inner class SamplePresenterB : SamplePresenterA() {
-        override val layoutId: Int
-            get() = R.layout.item_sample_b
-    }
-
-    internal inner class TextViewHolder(itemView: View, presenter: Presenter)
-        : BaseViewHolder(itemView, presenter) {
-        var mTextView: TextView = itemView.findViewById<View>(R.id.text) as TextView
-    }
-}
-
-class SampleDiffCallback : DiffCallback<BaseItem<*>>() {
-    override fun areItemsTheSame(oldItem: BaseItem<*>, newItem: BaseItem<*>): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: BaseItem<*>, newItem: BaseItem<*>): Boolean {
-        return oldItem.value == newItem.value
     }
 }

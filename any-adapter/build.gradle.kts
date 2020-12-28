@@ -25,6 +25,8 @@ dependencies {
     implementation(Dependencies.Android.recyclerview)
     testImplementation(Dependencies.Test.junit)
     compileOnly(Dependencies.kotlin)
+    compileOnly(Dependencies.Android.Paging.runtime)
+    compileOnly(Dependencies.Android.Paging.common)
 
     testImplementation(Dependencies.Test.kotlinReflect)
 

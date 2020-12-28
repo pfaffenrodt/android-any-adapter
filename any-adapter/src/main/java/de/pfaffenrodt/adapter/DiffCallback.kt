@@ -16,6 +16,8 @@
  */
 package de.pfaffenrodt.adapter
 
+import androidx.recyclerview.widget.DiffUtil
+
 /**
  * Callback that informs [ArrayAnyAdapter] how to compute list updates when using
  * [android.support.v7.util.DiffUtil] in [ArrayAnyAdapter.setItems] method.
@@ -66,6 +68,32 @@ abstract class DiffCallback<in Value> {
 inline fun <reified T> DiffCallback<T>.toAnyTypedDiffCallback() : DiffCallback<Any> {
     val wrappedCallback: DiffCallback<T> = this
     return object : DiffCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            if(oldItem is T && newItem is T) {
+                return wrappedCallback.areItemsTheSame(oldItem, newItem)
+            }
+            return false
+        }
+
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+            if(oldItem is T && newItem is T) {
+                return wrappedCallback.areContentsTheSame(oldItem, newItem)
+            }
+            return false
+        }
+
+        override fun getChangePayload(oldItem: Any, newItem: Any): Any? {
+            if(oldItem is T && newItem is T) {
+                return wrappedCallback.getChangePayload(oldItem, newItem)
+            }
+            return null
+        }
+    }
+}
+
+inline fun <reified T> DiffCallback<T>.toItemCallback(): DiffUtil.ItemCallback<Any> {
+    val wrappedCallback: DiffCallback<T> = this
+    return object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             if(oldItem is T && newItem is T) {
                 return wrappedCallback.areItemsTheSame(oldItem, newItem)

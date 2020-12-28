@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <import type="android.view.View" />
+    <variable
+        name="item"
+        type="androidx.paging.LoadState" />
+    <variable
+        name="eventHandler"
+        type="de.pfaffenrodt.adapter.EventHandler" />
+</data>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/error"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Failed to load"
+        android:height="48dp"
+        android:gravity="center"
+        tools:text="lorem ipsum"
+        android:background="#44f"
+        android:textColor="#fff"
+        android:visibility="@{item instanceof androidx.paging.LoadState.Error ?  View.VISIBLE : View.GONE}"
+        android:onClick="@{ (view) -> eventHandler.onEvent(view, item) }"
+        />
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="@{item instanceof androidx.paging.LoadState.Error ?  View.GONE : View.VISIBLE}"
+    />
+</FrameLayout>
+</layout>

@@ -8,19 +8,25 @@ Adapter that is similar to the ObjectAdapter (ArrayObjectAdapter) from the Leanb
 
 ## ChangeLog
 
+1.5.0
+
+    + add support for paging adapter with AnyPagingDataAdapter
+    + make ClassPresenterSelector open to inherit
+    + databinding presenter add support to pass handler as block function
+
 1.4
-   - migrate to androidx
+   + migrate to androidx
 
 
 ## Gradle
 Java Version
 ```gradle
-compile 'de.pfaffenrodt:object-adapter:x.x.x'
+implementation("de.pfaffenrodt:object-adapter:x.x.x")
 ```
 
 Kotlin Version
 ```gradle
-compile 'de.pfaffenrodt:object-adapter-kotlin:x.x.x'
+implementation("de.pfaffenrodt:object-adapter-kotlin:x.x.x")
 ```
 
 
