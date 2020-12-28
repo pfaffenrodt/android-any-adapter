@@ -32,5 +32,5 @@ dependencies {
     testImplementation(Dependencies.Test.junit)
 
     implementation(Dependencies.kotlin)
-    implementation(project(":object-adapter-kotlin"))
+    implementation(project(":any-adapter"))
 }
