@@ -49,8 +49,16 @@ open class DataBindingPresenter(
         private val mBindMap: SparseArrayCompat<Any> = SparseArrayCompat()
 ) : Presenter() {
 
-    fun bindVariable(bindingVariableId: Int, eventHandler: Any): DataBindingPresenter {
-        mBindMap.put(bindingVariableId, eventHandler)
+    fun bindHandler(bindingVariableId: Int, eventHandler: (Any) -> Unit): DataBindingPresenter {
+        return bindVariable(bindingVariableId, object: EventHandler {
+            override fun onEvent(view: View, item: Any) {
+                eventHandler(item)
+            }
+        })
+    }
+
+    fun bindVariable(bindingVariableId: Int, variable: Any): DataBindingPresenter {
+        mBindMap.put(bindingVariableId, variable)
         return this
     }
 
@@ -85,7 +93,7 @@ open class DataBindingPresenter(
         }
     }
 
-    protected fun onBindGlobalElement(binding: ViewDataBinding,
+    protected open fun onBindGlobalElement(binding: ViewDataBinding,
                                       bindingVariableId: Int,
                                       globalElement: Any?) {
         if (bindingVariableId != -1 && globalElement != null) {
@@ -104,3 +112,4 @@ open class DataBindingPresenter(
         override val presenter: Presenter
     ): RecyclerView.ViewHolder(mBinding.root), PresenterProvider
 }
+
