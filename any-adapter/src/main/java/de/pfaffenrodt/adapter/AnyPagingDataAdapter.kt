@@ -117,11 +117,12 @@ class AnyPagingDataAdapter: PagingDataAdapter<Any, ViewHolder> {
         super.onViewDetachedFromWindow(holder)
         getPresenter(holder).onViewDetachedFromWindow(holder)
     }
+
     /**
-     * Create a [ConcatAdapter] with the provided [LoadStateAdapter]s displaying the
+     * Create a [ConcatAdapter] with the provided [AnyLoadStateAdapter]s displaying the
      * [LoadType.PREPEND] [LoadState] as a list item at the end of the presented list.
      *
-     * @see LoadStateAdapter
+     * @see AnyLoadStateAdapter
      * @see withLoadStateHeaderAndFooter
      * @see withLoadStateFooter
      */
@@ -136,10 +137,28 @@ class AnyPagingDataAdapter: PagingDataAdapter<Any, ViewHolder> {
     }
 
     /**
-     * Create a [ConcatAdapter] with the provided [LoadStateAdapter]s displaying the
+     * Create a [ConcatAdapter] with the provided [AnyLoadStateAdapter]s displaying the
+     * [LoadType.PREPEND] [LoadState] as a list item at the end of the presented list.
+     *
+     * @see AnyLoadStateAdapter
+     * @see withLoadStateHeaderAndFooter
+     * @see withLoadStateFooter
+     */
+    fun withLoadStateHeader(
+            headerPresenter: PresenterSelector
+    ): ConcatAdapter {
+        val headerAdapter = AnyLoadStateAdapter(headerPresenter)
+        addLoadStateListener { loadStates ->
+            headerAdapter.loadState = loadStates.prepend
+        }
+        return ConcatAdapter(headerAdapter, this)
+    }
+
+    /**
+     * Create a [ConcatAdapter] with the provided [AnyLoadStateAdapter]s displaying the
      * [LoadType.APPEND] [LoadState] as a list item at the start of the presented list.
      *
-     * @see LoadStateAdapter
+     * @see AnyLoadStateAdapter
      * @see withLoadStateHeaderAndFooter
      * @see withLoadStateHeader
      */
@@ -154,17 +173,57 @@ class AnyPagingDataAdapter: PagingDataAdapter<Any, ViewHolder> {
     }
 
     /**
-     * Create a [ConcatAdapter] with the provided [LoadStateAdapter]s displaying the
+     * Create a [ConcatAdapter] with the provided [AnyLoadStateAdapter]s displaying the
+     * [LoadType.APPEND] [LoadState] as a list item at the start of the presented list.
+     *
+     * @see AnyLoadStateAdapter
+     * @see withLoadStateHeaderAndFooter
+     * @see withLoadStateHeader
+     */
+    fun withLoadStateFooter(
+            footerPresenter: PresenterSelector
+    ): ConcatAdapter {
+        val footerAdapter = AnyLoadStateAdapter(footerPresenter)
+        addLoadStateListener { loadStates ->
+            footerAdapter.loadState = loadStates.append
+        }
+        return ConcatAdapter(this, footerAdapter)
+    }
+
+    /**
+     * Create a [ConcatAdapter] with the provided [AnyLoadStateAdapter]s displaying the
      * [LoadType.PREPEND] and [LoadType.APPEND] [LoadState]s as list items at the start and end
      * respectively.
      *
-     * @see LoadStateAdapter
+     * @see AnyLoadStateAdapter
      * @see withLoadStateHeader
      * @see withLoadStateFooter
      */
     fun withLoadStateHeaderAndFooter(
             headerPresenter: Presenter,
             footerPresenter: Presenter
+    ): ConcatAdapter {
+        val headerAdapter = AnyLoadStateAdapter(headerPresenter)
+        val footerAdapter = AnyLoadStateAdapter(footerPresenter)
+        addLoadStateListener { loadStates ->
+            headerAdapter.loadState = loadStates.prepend
+            footerAdapter.loadState = loadStates.append
+        }
+        return ConcatAdapter(headerAdapter, this, footerAdapter)
+    }
+
+    /**
+     * Create a [ConcatAdapter] with the provided [AnyLoadStateAdapter]s displaying the
+     * [LoadType.PREPEND] and [LoadType.APPEND] [LoadState]s as list items at the start and end
+     * respectively.
+     *
+     * @see AnyLoadStateAdapter
+     * @see withLoadStateHeader
+     * @see withLoadStateFooter
+     */
+    fun withLoadStateHeaderAndFooter(
+            headerPresenter: PresenterSelector,
+            footerPresenter: PresenterSelector
     ): ConcatAdapter {
         val headerAdapter = AnyLoadStateAdapter(headerPresenter)
         val footerAdapter = AnyLoadStateAdapter(footerPresenter)
