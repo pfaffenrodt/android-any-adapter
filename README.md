@@ -2,18 +2,17 @@ Android ObjectAdapter
 =====================
 Version: 
 Java [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-object-adapter/images/download.svg) ](https://bintray.com/pfaffenrodt/maven/android-object-adapter/_latestVersion)
-Kotlin [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-kotlin-object-adapter/images/download.svg) ](https://bintray.com/pfaffenrodt/maven/android-kotlin-object-adapter/_latestVersion)
+Kotlin [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-any-adapter/images/download.svg) ](https://bintray.com/pfaffenrodt/maven/android-kotlin-object-adapter/_latestVersion)
 
 Adapter that is similar to the ObjectAdapter (ArrayObjectAdapter) from the Leanback support library.
 
 ## ChangeLog
 
 1.5.0
-
-    + add support for paging adapter with AnyPagingDataAdapter
-    + make ClassPresenterSelector open to inherit
-    + databinding presenter add support to pass handler as block function
-
+   + add support for paging adapter with AnyPagingDataAdapter
+   + make ClassPresenterSelector open to inherit
+   + databinding presenter add support to pass handler as block function
+   + :boom: rename module from object-kotlin-adapter to any-adapter
 1.4
    + migrate to androidx
 
@@ -26,7 +25,7 @@ implementation("de.pfaffenrodt:object-adapter:x.x.x")
 
 Kotlin Version
 ```gradle
-implementation("de.pfaffenrodt:object-adapter-kotlin:x.x.x")
+implementation("de.pfaffenrodt:any-adapter:x.x.x")
 ```
 
 

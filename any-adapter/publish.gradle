@@ -2,7 +2,7 @@ apply plugin: 'org.jetbrains.dokka-android'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def versionName = '1.5.0-rc2'
+def versionName = '1.5.0-rc4'
 def siteUrl = 'https://github.com/pfaffenrodt/android-object-adapter'
 def gitUrl = 'https://github.com/pfaffenrodt/android-object-adapter.git'
 
@@ -28,7 +28,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = 'maven'
-        name = 'android-kotlin-object-adapter'
+        name = 'android-any-adapter'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
@@ -48,7 +48,7 @@ install {
                 packaging 'aar'
                 name 'AnyAdapter'
                 groupId 'de.pfaffenrodt'
-                artifactId 'object-adapter-kotlin'
+                artifactId 'any-adapter'
                 url siteUrl
                 licenses {
                     license {
