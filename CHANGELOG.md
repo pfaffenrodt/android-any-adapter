@@ -4,6 +4,7 @@
 * make ClassPresenterSelector open to inherit
 * databinding presenter add support to pass handler as block function
 * :boom: rename module from object-kotlin-adapter to any-adapter
+* :fire: drop java implementation
 
 # 1.4.0
 
