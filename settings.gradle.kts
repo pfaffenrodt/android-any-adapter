@@ -1,1 +1,1 @@
-include(":sample", ":sample-kotlin", ":object-adapter", ":any-adapter")
+include(":sample", ":any-adapter")

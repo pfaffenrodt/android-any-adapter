@@ -4,20 +4,16 @@
     <data>
         <variable
             name="item"
-            type="de.pfaffenrodt.adapter.sample.SampleItem" />
-        <variable
-            name="eventHandler"
-            type="de.pfaffenrodt.adapter.EventHandler" />
+            type="de.pfaffenrodt.adapter.sample.SampleItemC" />
     </data>
 <TextView
           android:id="@+id/text"
           android:orientation="vertical"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@{item.text}"
+          android:text="@{item.value}"
           tools:text="lorem ipsum"
           android:background="#44f"
           android:textColor="#fff"
-          android:onClick="@{view -> eventHandler.onEvent(view, item)}"
     />
 </layout>

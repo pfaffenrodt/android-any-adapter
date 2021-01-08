@@ -12,9 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/any-adapter" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/object-adapter" />
             <option value="$PROJECT_DIR$/sample" />
-            <option value="$PROJECT_DIR$/sample-kotlin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
