@@ -2,21 +2,13 @@ apply plugin: 'org.jetbrains.dokka-android'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def versionName = '1.5.0-rc4'
+def versionName = '1.5.0'
 def siteUrl = 'https://github.com/pfaffenrodt/android-object-adapter'
 def gitUrl = 'https://github.com/pfaffenrodt/android-object-adapter.git'
 
 
 group 'de.pfaffenrodt'
 version versionName
-
-
-android {
-    compileOptions {
-        // FIX install task
-        //kotlinOptions.freeCompilerArgs += ['-module-name', group + ".android-kotlin-object-adapter"]
-    }
-}
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
