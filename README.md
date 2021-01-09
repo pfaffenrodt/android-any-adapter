@@ -22,14 +22,7 @@ implementation("de.pfaffenrodt:object-adapter:1.4.0")
 
 ## ChangeLog
 
-1.5.0
-   + add support for paging adapter with AnyPagingDataAdapter
-   + make ClassPresenterSelector open to inherit
-   + databinding presenter add support to pass handler as block function
-   + :boom: rename module from object-kotlin-adapter to any-adapter
-   + :fire: drop java implementation
-1.4
-   + migrate to androidx
+Please see [CHANGELOG](./CHANGELOG.md) for more information on what has changed recently.
 
 ## Features
 What does it do?
