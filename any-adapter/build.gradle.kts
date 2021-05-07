@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.3.0")
     androidTestImplementation(Dependencies.Test.espresso)
     testImplementation("org.mockito:mockito-core:2.22.0")
-    testImplementation("com.nhaarman:mockito-kotlin:1.5.0")
+    testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
     testImplementation(Dependencies.Test.googleTruth)
 }
 tasks.dokkaHtml.configure {
