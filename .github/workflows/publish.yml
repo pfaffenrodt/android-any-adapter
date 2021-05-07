@@ -35,3 +35,4 @@ jobs:
           SONATYPE_URL: ${{ secrets.OSSRH_URL }}
           SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -74,6 +74,14 @@ afterEvaluate {
                     password = properties["sonatypePassword"] as String?
                 }
             }
+            maven {
+                name = "GitHub Packages"
+                url = uri("https://maven.pkg.github.com/pfaffenrodt/android-any-adapter")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
         }
         publications {
             create<MavenPublication>("release") {
@@ -87,6 +95,7 @@ afterEvaluate {
                 artifact(javadocJar)
                 pom {
                     name.set("AnyAdapter")
+                    description.set("android recyclerview adapter to support to pass any objects")
                     url.set(siteUrl)
                     licenses {
                         license {
