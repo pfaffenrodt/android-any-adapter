@@ -1,3 +1,9 @@
+# 1.5.1
+* upgrade kotlin to 1.5.0
+* upgrade dependency to build tools 4.2.0
+* upgrade dependency to recyclerView to 1.2.0
+* move to mavenCentral with sonatype
+
 # 1.5.0
 
 * add support for paging adapter with AnyPagingDataAdapter

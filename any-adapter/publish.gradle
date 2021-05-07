@@ -1,14 +1,8 @@
-apply plugin: 'org.jetbrains.dokka-android'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-
-def versionName = '1.5.0'
-def siteUrl = 'https://github.com/pfaffenrodt/android-object-adapter'
-def gitUrl = 'https://github.com/pfaffenrodt/android-object-adapter.git'
 
 
-group 'de.pfaffenrodt'
-version versionName
+def versionName = '1.5.1'
+
+
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -35,54 +29,6 @@ bintray {
 }
 install {
     repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name 'AnyAdapter'
-                groupId 'de.pfaffenrodt'
-                artifactId 'any-adapter'
-                url siteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'pfaffenrodt'
-                        name 'Dimitri Pfaffenrodt'
-                        email 'dimitri@pfaffenrodt.de'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-
-                }
-            }
-        }
     }
 }
 
-dokka {
-    outputFormat = 'html'
-    outputDirectory = "$buildDir/javadoc"
-    sourceDirs = files('src/main/java')
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: dokka) {
-    classifier = 'javadoc'
-    from dokka.outputDirectory
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
