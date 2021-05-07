@@ -17,6 +17,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
 import androidx.paging.rxjava3.flowable
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -83,6 +84,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             return items
+        }
+
+        override fun getRefreshKey(state: PagingState<Int, Any>): Int? {
+            return state.anchorPosition
         }
     }
 }
