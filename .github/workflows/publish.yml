@@ -2,8 +2,7 @@ name: publish
 
 on:
   push:
-    branches: [ "main", "releases/**" ]
-    tags: [ "v*" ]
+    tags: [ "1.*" ]
 
 jobs:
   publish:
