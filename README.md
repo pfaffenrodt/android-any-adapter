@@ -1,6 +1,6 @@
 Android AnyAdapter
 =====================
-Version: [ ![Download](https://api.bintray.com/packages/pfaffenrodt/maven/android-any-adapter/images/download.svg) ](https://bintray.com/pfaffenrodt/maven/android-any-adapter/_latestVersion)
+Current Version: ![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.pfaffenrodt/any-adapter/badge.svg)
 
 Adapter that is similar to the [ObjectAdapter](https://developer.android.com/reference/androidx/leanback/widget/ObjectAdapter) (ArrayObjectAdapter) from the Leanback widget library ([androidx.leanback.widget](https://developer.android.com/reference/androidx/leanback/widget/package-summary)).
 Leanbacks package provide many many features and focus on TV. But so many things concludes to complexity.
@@ -10,15 +10,16 @@ In contrast to leanbacks ObjectAdapter the AnyAdapter is based on RecyclerViews.
 
 ## Gradle
 
-Kotlin Version
-```gradle
-implementation("de.pfaffenrodt:any-adapter:x.x.x")
+```build.gradle.kts
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation("de.pfaffenrodt:any-adapter:x.x.x")
+}
 ```
 
-Java Version Deprecated
-```gradle
-implementation("de.pfaffenrodt:object-adapter:1.4.0")
-```
+:coffin: jcenter ended service. old packages below `1.5.1` are dead
 
 ## ChangeLog
 
