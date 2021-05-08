@@ -1,6 +1,6 @@
 Android AnyAdapter
 =====================
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/pfaffenrodt/android-any-adapter) ![Maven Central](https://img.shields.io/maven-central/v/de.pfaffenrodt/any-adapter)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/pfaffenrodt/android-any-adapter)]() [![Maven Central](https://img.shields.io/maven-central/v/de.pfaffenrodt/any-adapter)]()
 
 Adapter that is similar to the [ObjectAdapter](https://developer.android.com/reference/androidx/leanback/widget/ObjectAdapter) (ArrayObjectAdapter) from the Leanback widget library ([androidx.leanback.widget](https://developer.android.com/reference/androidx/leanback/widget/package-summary)).
 Leanbacks package provide many many features and focus on TV. But so many things concludes to complexity.
