@@ -40,7 +40,7 @@ dependencies {
 
     androidTestImplementation("androidx.test:runner:1.3.0")
     androidTestImplementation(Dependencies.Test.espresso)
-    testImplementation("org.mockito:mockito-core:3.9.0")
+    testImplementation("org.mockito:mockito-core:3.10.0")
     testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
     testImplementation(Dependencies.Test.googleTruth)
 }
