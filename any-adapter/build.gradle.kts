@@ -38,7 +38,7 @@ dependencies {
 
     testImplementation(Dependencies.Test.kotlinReflect)
 
-    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation(Dependencies.Test.espresso)
     testImplementation("org.mockito:mockito-core:3.11.2")
     testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
