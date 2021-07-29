@@ -8,4 +8,4 @@ updates:
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "com.android.tools.build:gradle"
-        versions: "> 5.0.0"
+        update-types: ["version-update:semver-minor"]
