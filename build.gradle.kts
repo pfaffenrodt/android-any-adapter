@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         //noinspection AndroidGradlePluginVersion
-        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath("com.android.tools.build:gradle:7.0.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
         classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:${Version.dokka}")
