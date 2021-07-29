@@ -5,11 +5,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Version.compileSdkVersion)
+    val compileSdkVersion: Int by rootProject.extra
+    val minSdkVersion: Int by rootProject.extra
+    val targetSdkVersion: Int by rootProject.extra
+    compileSdk = compileSdkVersion
     defaultConfig {
-        applicationId("de.pfaffenrodt.adapter.sample")
-        minSdkVersion(Version.minSdkVersion)
-        targetSdkVersion(Version.targetSdkVersion)
+        applicationId = "de.pfaffenrodt.adapter.sample"
+        minSdk = minSdkVersion
+        targetSdk = targetSdkVersion
         versionCode = 1
         versionName = "1.0"
     }
@@ -25,15 +28,15 @@ android {
 }
 
 dependencies {
-    androidTestImplementation(Dependencies.Test.espresso)
-    implementation(Dependencies.Android.recyclerview)
-    implementation(Dependencies.Android.appCompat)
-    implementation(Dependencies.Android.lifecycleRuntime)
-    implementation(Dependencies.Android.Paging.runtime)
-    implementation(Dependencies.Android.Paging.rxjava3)
-    implementation(Dependencies.rxjava3)
-    testImplementation(Dependencies.Test.junit)
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.lifecycle:lifecycle-runtime:2.3.1")
+    implementation("androidx.paging:paging-runtime:3.0.1")
+    implementation("androidx.paging:paging-rxjava3:3.0.1")
+    implementation("io.reactivex.rxjava3:rxjava:3.0.8")
+    testImplementation("junit:junit:4.13.1")
 
-    implementation(Dependencies.kotlin)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21")
     implementation(project(":any-adapter"))
 }

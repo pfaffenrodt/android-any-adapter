@@ -13,10 +13,13 @@ val siteUrl = "https://github.com/pfaffenrodt/android-any-adapter"
 val gitUrl = "https://github.com/pfaffenrodt/android-any-adapter.git"
 
 android {
-    compileSdkVersion(Version.compileSdkVersion)
+    val compileSdkVersion: Int by rootProject.extra
+    val minSdkVersion: Int by rootProject.extra
+    val targetSdkVersion: Int by rootProject.extra
+    compileSdk = compileSdkVersion
     defaultConfig {
-        minSdkVersion(Version.minSdkVersion)
-        targetSdkVersion(Version.targetSdkVersion)
+        minSdk = minSdkVersion
+        targetSdk = targetSdkVersion
     }
     buildTypes {
         getByName("release") {
@@ -30,19 +33,18 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Android.recyclerview)
-    testImplementation(Dependencies.Test.junit)
-    compileOnly(Dependencies.kotlin)
-    compileOnly(Dependencies.Android.Paging.runtime)
-    compileOnly(Dependencies.Android.Paging.common)
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    testImplementation("junit:junit:4.13.1")
+    compileOnly("androidx.paging:paging-runtime:3.0.1")
+    compileOnly("androidx.paging:paging-common:3.0.1")
 
-    testImplementation(Dependencies.Test.kotlinReflect)
+    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
 
     androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation(Dependencies.Test.espresso)
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     testImplementation("org.mockito:mockito-core:3.11.2")
     testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
-    testImplementation(Dependencies.Test.googleTruth)
+    testImplementation("com.google.truth:truth:1.1")
 }
 tasks.dokkaHtml.configure {
     dokkaSourceSets {

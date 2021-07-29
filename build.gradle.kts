@@ -1,15 +1,19 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+extra["minSdkVersion"] = 14
+extra["targetSdkVersion"] = 30
+extra["compileSdkVersion"] = 30
+
+
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        //noinspection AndroidGradlePluginVersion
         classpath("com.android.tools.build:gradle:7.0.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
         classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${Version.dokka}")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.32")
     }
 }
 
