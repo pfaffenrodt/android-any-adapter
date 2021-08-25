@@ -37,6 +37,6 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.0")
     testImplementation("junit:junit:4.13.2")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30")
     implementation(project(":any-adapter"))
 }
