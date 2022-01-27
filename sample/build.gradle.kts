@@ -34,7 +34,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime:2.3.1")
     implementation("androidx.paging:paging-runtime:3.0.1")
     implementation("androidx.paging:paging-rxjava3:3.0.1")
-    implementation("io.reactivex.rxjava3:rxjava:3.1.2")
+    implementation("io.reactivex.rxjava3:rxjava:3.1.3")
     testImplementation("junit:junit:4.13.2")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
