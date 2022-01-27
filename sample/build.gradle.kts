@@ -31,7 +31,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.lifecycle:lifecycle-runtime:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-runtime:2.4.0")
     implementation("androidx.paging:paging-runtime:3.0.1")
     implementation("androidx.paging:paging-rxjava3:3.0.1")
     implementation("io.reactivex.rxjava3:rxjava:3.1.3")
