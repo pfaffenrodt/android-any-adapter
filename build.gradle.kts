@@ -22,4 +22,11 @@ allprojects {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "androidx.lifecycle") {
+                useVersion("2.5.1")
+            }
+        }
+    }
 }
