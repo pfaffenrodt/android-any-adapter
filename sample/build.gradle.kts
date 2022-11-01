@@ -25,12 +25,13 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    namespace = "de.pfaffenrodt.adapter.sample"
 }
 
 dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("androidx.lifecycle:lifecycle-runtime:2.5.1")
     implementation("androidx.paging:paging-runtime:3.1.1")
     implementation("androidx.paging:paging-rxjava3:3.1.1")
