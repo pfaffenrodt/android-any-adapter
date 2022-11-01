@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-object-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/android-object-adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/any-adapter/android-object-adapter.any-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/any-adapter/android-object-adapter.any-adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/android-object-adapter.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/android-object-adapter.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-any-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/android-any-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/any-adapter/android-any-adapter.any-adapter.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/android-any-adapter.sample.unitTest.iml" />
     </modules>
   </component>
 </project>
