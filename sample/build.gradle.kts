@@ -25,6 +25,7 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    namespace = "de.pfaffenrodt.adapter.sample"
 }
 
 dependencies {

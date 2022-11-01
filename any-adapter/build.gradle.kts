@@ -30,6 +30,7 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    namespace = "de.pfaffenrodt.adapter"
 }
 
 dependencies {
