@@ -1,7 +1,19 @@
+# 1.5.4
+* upgrade kotlin to 1.7.20
+* upgrade dependency of build tools to 7.3.1
+* upgrade dependency of recyclerView to 1.2.1
+* upgrade dependency of paging to 3.1.1
+
+# 1.5.3
+* upgrade kotlin to 1.6.10
+
+# 1.5.2
+* upgrade kotlin to 1.5.21
+
 # 1.5.1
 * upgrade kotlin to 1.5.0
-* upgrade dependency to build tools 4.2.0
-* upgrade dependency to recyclerView to 1.2.0
+* upgrade dependency of build tools 4.2.0
+* upgrade dependency of recyclerView to 1.2.0
 * move to mavenCentral with sonatype
 
 # 1.5.0
