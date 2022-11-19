@@ -42,7 +42,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
 
     androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     testImplementation("org.mockito:mockito-core:4.8.1")
     testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
     testImplementation("com.google.truth:truth:1.1.3")
