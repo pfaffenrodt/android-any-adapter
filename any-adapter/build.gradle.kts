@@ -15,11 +15,9 @@ val gitUrl = "https://github.com/pfaffenrodt/android-any-adapter.git"
 android {
     val compileSdkVersion: Int by rootProject.extra
     val minSdkVersion: Int by rootProject.extra
-    val targetSdkVersion: Int by rootProject.extra
     compileSdk = compileSdkVersion
     defaultConfig {
         minSdk = minSdkVersion
-        targetSdk = targetSdkVersion
     }
     buildTypes {
         getByName("release") {
