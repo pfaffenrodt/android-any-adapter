@@ -29,15 +29,15 @@ android {
 }
 
 dependencies {
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime:2.5.1")
     implementation("androidx.paging:paging-runtime:3.1.1")
     implementation("androidx.paging:paging-rxjava3:3.1.1")
-    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+    implementation("io.reactivex.rxjava3:rxjava:3.1.6")
     testImplementation("junit:junit:4.13.2")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21")
     implementation(project(":any-adapter"))
 }
