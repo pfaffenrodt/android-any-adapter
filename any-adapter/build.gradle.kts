@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
     testImplementation("junit:junit:4.13.2")
     compileOnly("androidx.paging:paging-runtime:3.1.1")
     compileOnly("androidx.paging:paging-common:3.1.1")
