@@ -37,7 +37,7 @@ dependencies {
     compileOnly("androidx.paging:paging-runtime:3.1.1")
     compileOnly("androidx.paging:paging-common:3.1.1")
 
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
+    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.8.22")
 
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
