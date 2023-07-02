@@ -2,6 +2,7 @@ include(":sample", ":any-adapter")
 
 pluginManagement {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
     }

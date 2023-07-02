@@ -4,6 +4,7 @@ androidGradlePlugin = "8.0.2"
 dokka = "1.8.20"
 androidx-paging = "3.1.1"
 androidx-lifecycle = "2.6.1"
+gradle-nexus-publish = "2.0.0-rc-1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -11,6 +12,7 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka"}
+gradle-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "gradle-nexus-publish" }
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

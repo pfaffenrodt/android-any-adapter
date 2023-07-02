@@ -72,7 +72,6 @@ val javadocJar by tasks.registering(Jar::class) {
 val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
 
 afterEvaluate {
-
     publishing {
         repositories {
             maven {
