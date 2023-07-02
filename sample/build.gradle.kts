@@ -16,14 +16,21 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    buildFeatures {
-        dataBinding = true
+    dataBinding {
+        enable = true
+    }
+    viewBinding {
+        enable = false
     }
     namespace = "de.pfaffenrodt.adapter.sample"
 }
