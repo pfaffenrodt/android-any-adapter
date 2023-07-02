@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-java@v1
         name: setup java
         with:
-          java-version: 11
+          java-version: 17
       - name: Publish package
         run: |
           chmod +x ./gradlew
