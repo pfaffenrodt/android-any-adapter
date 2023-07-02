@@ -1,7 +1,7 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -16,27 +16,34 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    buildFeatures {
-        dataBinding = true
+    dataBinding {
+        enable = true
+    }
+    viewBinding {
+        enable = false
     }
     namespace = "de.pfaffenrodt.adapter.sample"
 }
 
 dependencies {
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime:2.6.1")
-    implementation("androidx.paging:paging-runtime:3.1.1")
-    implementation("androidx.paging:paging-rxjava3:3.1.1")
-    implementation("io.reactivex.rxjava3:rxjava:3.1.6")
-    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.rxjava3)
+    implementation(libs.rxjava3)
+    testImplementation(libs.junit)
 
     implementation(project(":any-adapter"))
 }

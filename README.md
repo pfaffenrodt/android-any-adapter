@@ -20,8 +20,6 @@ dependencies {
 }
 ```
 
-:coffin: jcenter ended service. old packages below `1.5.1` are dead
-
 ## ChangeLog
 
 Please see [CHANGELOG](./CHANGELOG.md) for more information on what has changed recently.

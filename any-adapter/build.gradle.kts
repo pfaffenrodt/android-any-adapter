@@ -1,14 +1,14 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dokka)
     id("maven-publish")
     id("signing")
 }
 
 group = "de.pfaffenrodt"
-version  = "1.5.5"
+version  = "1.6.0"
 val siteUrl = "https://github.com/pfaffenrodt/android-any-adapter"
 val gitUrl = "https://github.com/pfaffenrodt/android-any-adapter.git"
 
@@ -19,31 +19,39 @@ android {
     defaultConfig {
         minSdk = minSdkVersion
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    buildFeatures {
-        dataBinding = true
+    dataBinding {
+        enable = true
+    }
+    viewBinding {
+        enable = false
     }
     namespace = "de.pfaffenrodt.adapter"
 }
 
 dependencies {
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
-    testImplementation("junit:junit:4.13.2")
-    compileOnly("androidx.paging:paging-runtime:3.1.1")
-    compileOnly("androidx.paging:paging-common:3.1.1")
+    implementation(libs.androidx.recyclerview)
+    testImplementation(libs.junit)
+    compileOnly(libs.androidx.paging.runtime)
+    compileOnly(libs.androidx.paging.common)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.8.22")
+    testImplementation(libs.kotlin.reflect)
 
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    testImplementation("org.mockito:mockito-core:5.4.0")
-    testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
-    testImplementation("com.google.truth:truth:1.1.5")
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.google.truth)
 }
 tasks.dokkaHtml.configure {
     dokkaSourceSets {
@@ -64,7 +72,6 @@ val javadocJar by tasks.registering(Jar::class) {
 val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
 
 afterEvaluate {
-
     publishing {
         repositories {
             maven {

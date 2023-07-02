@@ -4,29 +4,22 @@ extra["targetSdkVersion"] = 33
 extra["compileSdkVersion"] = 33
 
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.4.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
-        classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.8.20")
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.dokka) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.gradle.nexus.publish) apply true
 }
 
-allprojects {
+val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
+nexusPublishing {
     repositories {
-        google()
-        mavenCentral()
-    }
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == "androidx.lifecycle") {
-                useVersion("2.5.1")
-            }
+        sonatype {
+            nexusUrl.set(uri(sonaTypeUrl))
+            username.set(properties["sonatypeUsername"] as String?)
+            password.set(properties["sonatypePassword"] as String?)
         }
     }
 }

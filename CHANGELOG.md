@@ -1,3 +1,9 @@
+# 1.6.0
+* upgrade kotlin to 1.8.22
+* upgrade dependency of build tools to 7.4.1
+* upgrade gradle wrapper 8.0.2
+* switch to version catalog
+
 # 1.5.5
 * upgrade kotlin to 1.8.10
 * upgrade dependency of build tools to 7.4.1
