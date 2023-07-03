@@ -34,7 +34,7 @@ android {
         enable = true
     }
     viewBinding {
-        enable = false
+        enable = true
     }
     namespace = "de.pfaffenrodt.adapter"
 }

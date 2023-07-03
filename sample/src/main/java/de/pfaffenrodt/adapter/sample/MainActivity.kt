@@ -78,9 +78,10 @@ class MainActivity : AppCompatActivity() {
             val items = ArrayList<BaseItem<*>>()
             for (i in first..last) {
                 when {
-                    i % 2 == 0 -> items.add(SampleItemA(i, "fo" +i))
+                    i % 2 == 0 -> items.add(SampleItemA(i, "SampleItemA: fo" +i))
                     i % 3 == 0 -> items.add(SampleItemB(i, i))
-                    else -> items.add(SampleItemC(i, "fooo" + i))
+                    i % 5 == 0 -> items.add(SampleItemD(i, "SampleItemD: " + i))
+                    else -> items.add(SampleItemC(i, "SampleItemC: fooo" + i))
                 }
             }
             return items

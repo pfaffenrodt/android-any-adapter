@@ -41,7 +41,7 @@ internal class AnyLoadStateAdapter: AnyAdapter {
      *
      * By default, [LoadState.Loading] and [LoadState.Error] present as list items, others do not.
      */
-    open fun displayLoadStateAsItem(loadState: LoadState): Boolean {
+    fun displayLoadStateAsItem(loadState: LoadState): Boolean {
         return loadState is LoadState.Loading || loadState is LoadState.Error
     }
 

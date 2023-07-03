@@ -3,6 +3,7 @@
 * upgrade dependency of build tools to 7.4.1
 * upgrade gradle wrapper 8.0.2
 * switch to version catalog
+* add ViewBindingPresenter for viewBinding
 
 # 1.5.5
 * upgrade kotlin to 1.8.10
