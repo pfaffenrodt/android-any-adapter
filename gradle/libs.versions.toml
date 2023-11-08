@@ -36,6 +36,6 @@ junit = "junit:junit:4.13.2"
 
 kotlin-reflect = "org.jetbrains.kotlin:kotlin-reflect:1.9.20"
 
-mockito-core = "org.mockito:mockito-core:5.6.0"
+mockito-core = "org.mockito:mockito-core:5.7.0"
 mockito-kotlin = "com.nhaarman:mockito-kotlin:1.6.0"
 google-truth = "com.google.truth:truth:1.1.5"
