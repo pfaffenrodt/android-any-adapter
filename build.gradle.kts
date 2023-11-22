@@ -14,10 +14,12 @@ plugins {
 }
 
 val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
+val sonatypeSnapshotUrl = (properties["sonatypeSnapshotUrl"] as String?)!!
 nexusPublishing {
     repositories {
         sonatype {
             nexusUrl.set(uri(sonaTypeUrl))
+            snapshotRepositoryUrl.set(uri(sonatypeSnapshotUrl))
             username.set(properties["sonatypeUsername"] as String?)
             password.set(properties["sonatypePassword"] as String?)
             stagingProfileId.set(properties["sonatypeStagingProfileId"] as String?)

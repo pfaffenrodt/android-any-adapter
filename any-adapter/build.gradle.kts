@@ -69,19 +69,10 @@ val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
     from("$buildDir/dokka/javadoc")
 }
-val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
 
 afterEvaluate {
     publishing {
         repositories {
-            maven {
-                name = "OSSRH"
-                url = uri(sonaTypeUrl)
-                credentials {
-                    username = properties["sonatypeUsername"] as String?
-                    password = properties["sonatypePassword"] as String?
-                }
-            }
             maven {
                 name = "GitHub Packages"
                 url = uri("https://maven.pkg.github.com/pfaffenrodt/android-any-adapter")
