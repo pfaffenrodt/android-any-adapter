@@ -128,5 +128,6 @@ afterEvaluate {
     }
 }
 signing {
+    useGpgCmd()
     sign(publishing.publications)
 }
