@@ -20,6 +20,7 @@ nexusPublishing {
             nexusUrl.set(uri(sonaTypeUrl))
             username.set(properties["sonatypeUsername"] as String?)
             password.set(properties["sonatypePassword"] as String?)
+            stagingProfileId.set(properties["sonatypeStagingProfileId"] as String?)
         }
     }
 }
