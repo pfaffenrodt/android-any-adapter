@@ -69,11 +69,6 @@ val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
     from("$buildDir/dokka/javadoc")
 }
-tasks.withType<GenerateModuleMetadata> {
-    dependsOn(javadocJar)
-    dependsOn(sourcesJar)
-}
-
 
 afterEvaluate {
     publishing {
@@ -128,6 +123,5 @@ afterEvaluate {
     }
 }
 signing {
-    useGpgCmd()
     sign(publishing.publications)
 }

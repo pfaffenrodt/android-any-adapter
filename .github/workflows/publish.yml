@@ -42,3 +42,6 @@ jobs:
       - name: Close And Release Staging repository
         run: |
           ./gradlew findSonatypeStagingRepository closeAndReleaseSonatypeStagingRepository --warn --stacktrace
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
