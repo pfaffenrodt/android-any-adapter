@@ -14,7 +14,7 @@ jobs:
         name: setup java
         with:
           java-version: 17
-      - name: setup properties
+      - name: Publish package
         run: |
           chmod +x ./gradlew
           echo -n "$GPG_PRIVATE_KEY" | base64 --decode > ${GPG_RING_FILE}
@@ -26,6 +26,7 @@ jobs:
           sed -i -e "s,signing.keyId=,signing.keyId=$GPG_KEY_ID,g" gradle.properties
           sed -i -e "s,signing.password=,signing.password=$GPG_PASSWORD,g" gradle.properties
           sed -i -e "s,signing.secretKeyRingFile=,signing.secretKeyRingFile=$GPG_RING_FILE,g" gradle.properties
+          ./gradlew :any-adapter:assembleRelease :any-adapter:publish --warn --stacktrace
         env:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
           GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
@@ -35,11 +36,6 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           SONATYPE_STAGING_PROFILE_ID: ${{ secrets.OSSRH_STAGING_PROFILE_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish package
-        run: |
-          ./gradlew :any-adapter:assembleRelease :any-adapter:publish --warn --stacktrace
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Close And Release Staging repository
         run: |
