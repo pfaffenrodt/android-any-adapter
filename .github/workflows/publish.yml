@@ -25,7 +25,8 @@ jobs:
           sed -i -e "s,signing.keyId=,signing.keyId=$GPG_KEY_ID,g" gradle.properties
           sed -i -e "s,signing.password=,signing.password=$GPG_PASSWORD,g" gradle.properties
           sed -i -e "s,signing.secretKeyRingFile=,signing.secretKeyRingFile=$GPG_RING_FILE,g" gradle.properties
-          ./gradlew :any-adapter:assembleRelease :any-adapter:publish findSonatypeStagingRepository closeAndReleaseSonatypeStagingRepository --warn --stacktrace
+          ./gradlew :any-adapter:assembleRelease :any-adapter:publish --warn --stacktrace
+          ./gradlew findSonatypeStagingRepository closeAndReleaseSonatypeStagingRepository --warn --stacktrace
         env:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
           GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
