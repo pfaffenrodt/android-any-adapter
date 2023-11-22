@@ -64,11 +64,16 @@ val sourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
     from(android.sourceSets["main"].java.srcDirs)
 }
-//val javadocJar by tasks.registering(Jar::class) {
-//    dependsOn("dokkaJavadoc")
-//    archiveClassifier.set("javadoc")
-//    from("$buildDir/dokka/javadoc")
-//}
+val javadocJar by tasks.registering(Jar::class) {
+    dependsOn("dokkaJavadoc")
+    archiveClassifier.set("javadoc")
+    from("$buildDir/dokka/javadoc")
+}
+tasks.withType<GenerateModuleMetadata> {
+    dependsOn(javadocJar)
+    dependsOn(sourcesJar)
+}
+
 
 afterEvaluate {
     publishing {
@@ -91,7 +96,7 @@ afterEvaluate {
             }
             withType<MavenPublication> {
                 artifact(sourcesJar)
-//                artifact(javadocJar)
+                artifact(javadocJar)
                 pom {
                     name.set("AnyAdapter")
                     description.set("android recyclerview adapter to support to pass any objects")
