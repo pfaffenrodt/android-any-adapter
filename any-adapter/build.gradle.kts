@@ -93,8 +93,7 @@ afterEvaluate {
                 artifactId = "any-adapter"
                 version = project.version as String
                 from(components["release"])
-            }
-            withType<MavenPublication> {
+
                 artifact(sourcesJar)
                 artifact(javadocJar)
                 pom {
