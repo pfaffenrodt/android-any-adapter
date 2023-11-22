@@ -1,3 +1,12 @@
+# 1.6.1
+* upgrade kotlin to 1.9.20
+* gradle plugin 8.1.4
+* dokka 1.9.10
+* androidx-paging 3.2.1
+* androidx-lifecycle 2.6.2
+* recyclerview 1.3.2
+* sample rxjava 3.1.8
+
 # 1.6.0
 * upgrade kotlin to 1.8.22
 * upgrade dependency of build tools to 7.4.1
