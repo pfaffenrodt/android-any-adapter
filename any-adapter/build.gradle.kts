@@ -53,22 +53,22 @@ dependencies {
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.google.truth)
 }
-tasks.dokkaHtml.configure {
-    dokkaSourceSets {
-        named("main") {
-            noAndroidSdkLink.set(false)
-        }
-    }
-}
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets["main"].java.srcDirs)
-}
-val javadocJar by tasks.registering(Jar::class) {
-    dependsOn("dokkaJavadoc")
-    archiveClassifier.set("javadoc")
-    from("$buildDir/dokka/javadoc")
-}
+//tasks.dokkaHtml.configure {
+//    dokkaSourceSets {
+//        named("main") {
+//            noAndroidSdkLink.set(false)
+//        }
+//    }
+//}
+//val sourcesJar by tasks.registering(Jar::class) {
+//    archiveClassifier.set("sources")
+//    from(android.sourceSets["main"].java.srcDirs)
+//}
+//val javadocJar by tasks.registering(Jar::class) {
+//    dependsOn("dokkaJavadoc")
+//    archiveClassifier.set("javadoc")
+//    from("$buildDir/dokka/javadoc")
+//}
 
 afterEvaluate {
     publishing {
@@ -89,8 +89,8 @@ afterEvaluate {
                 version = project.version as String
                 from(components["release"])
 
-                artifact(sourcesJar)
-                artifact(javadocJar)
+//                artifact(sourcesJar)
+//                artifact(javadocJar)
                 pom {
                     name.set("AnyAdapter")
                     description.set("android recyclerview adapter to support to pass any objects")
