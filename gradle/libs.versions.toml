@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 androidGradlePlugin = "8.1.4"
 dokka = "1.9.10"
 androidx-paging = "3.2.1"
