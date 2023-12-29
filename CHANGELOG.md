@@ -1,3 +1,7 @@
+# 1.6.2
+* upgrade kotlin to 1.9.22
+* gradle plugin 8.2.0
+
 # 1.6.1
 * upgrade kotlin to 1.9.20
 * gradle plugin 8.1.4

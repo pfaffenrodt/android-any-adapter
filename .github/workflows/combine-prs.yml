@@ -18,7 +18,6 @@ on:
       combineBranchName:
         description: 'Name of the branch to combine PRs into'
         required: true
-        default: 'combine-prs-branch'
       ignoreLabel:
         description: 'Exclude PRs with this label'
         required: true
