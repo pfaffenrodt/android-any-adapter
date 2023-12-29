@@ -1,8 +1,11 @@
+import java.time.Duration
 
 extra["minSdkVersion"] = 14
 extra["targetSdkVersion"] = 33
 extra["compileSdkVersion"] = 33
 
+group = "de.pfaffenrodt"
+version = "1.6.2"
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -16,6 +19,7 @@ plugins {
 val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
 val sonatypeSnapshotUrl = (properties["sonatypeSnapshotUrl"] as String?)!!
 nexusPublishing {
+    repositoryDescription = "Any Adapter:unspecified"
     repositories {
         sonatype {
             nexusUrl.set(uri(sonaTypeUrl))
@@ -24,5 +28,9 @@ nexusPublishing {
             password.set(properties["sonatypePassword"] as String?)
             stagingProfileId.set(properties["sonatypeStagingProfileId"] as String?)
         }
+    }
+    transitionCheckOptions {
+        maxRetries = 100
+        delayBetween = Duration.ofSeconds(5)
     }
 }

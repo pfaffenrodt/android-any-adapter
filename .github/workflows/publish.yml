@@ -16,6 +16,7 @@ jobs:
           java-version: 17
       - name: Publish package
         run: |
+          echo "Publishing library🚀"
           chmod +x ./gradlew
           echo -n "$GPG_PRIVATE_KEY" | base64 --decode > ${GPG_RING_FILE}
           SONATYPE_PASSWORD_ESCAPED=$(printf '%s\n' "$SONATYPE_PASSWORD" | sed -e 's/[\/&]/\\&/g')
@@ -28,6 +29,7 @@ jobs:
           sed -i -e "s,signing.password=,signing.password=$GPG_PASSWORD,g" gradle.properties
           sed -i -e "s,signing.secretKeyRingFile=,signing.secretKeyRingFile=$GPG_RING_FILE,g" gradle.properties
           ./gradlew :any-adapter:assembleRelease :any-adapter:publish --warn --stacktrace
+          echo "Published✅"
         env:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
           GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
@@ -41,7 +43,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Close And Release Staging repository
         run: |
-          ./gradlew findSonatypeStagingRepository closeAndReleaseSonatypeStagingRepository --warn --stacktrace
+          echo "Releasing repository...🚀"
+          ./gradlew closeAndReleaseSonatypeStagingRepository --warn --stacktrace
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

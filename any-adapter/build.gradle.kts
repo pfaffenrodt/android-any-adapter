@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "de.pfaffenrodt"
-version  = "1.6.2"
+version  = rootProject.version
 val siteUrl = "https://github.com/pfaffenrodt/android-any-adapter"
 val gitUrl = "https://github.com/pfaffenrodt/android-any-adapter.git"
 
