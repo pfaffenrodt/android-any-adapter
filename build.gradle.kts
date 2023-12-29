@@ -19,7 +19,6 @@ plugins {
 val sonaTypeUrl = (properties["sonatypeUrl"] as String?)!!
 val sonatypeSnapshotUrl = (properties["sonatypeSnapshotUrl"] as String?)!!
 nexusPublishing {
-    repositoryDescription = "Any Adapter:unspecified"
     repositories {
         sonatype {
             nexusUrl.set(uri(sonaTypeUrl))
