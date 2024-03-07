@@ -34,7 +34,7 @@ androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
 
 junit = "junit:junit:4.13.2"
 
-kotlin-reflect = "org.jetbrains.kotlin:kotlin-reflect:1.9.22"
+kotlin-reflect = "org.jetbrains.kotlin:kotlin-reflect:1.9.23"
 
 mockito-core = "org.mockito:mockito-core:5.9.0"
 mockito-kotlin = "com.nhaarman:mockito-kotlin:1.6.0"
