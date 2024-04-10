@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.22"
-androidGradlePlugin = "8.2.2"
+androidGradlePlugin = "8.3.2"
 dokka = "1.9.10"
 androidx-paging = "3.2.1"
 androidx-lifecycle = "2.6.2"
