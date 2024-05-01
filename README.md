@@ -1,3 +1,7 @@
+Obsolete
+========
+Switch to jetpack compose. I will archive this project
+
 Android AnyAdapter
 =====================
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/pfaffenrodt/android-any-adapter)](https://github.com/pfaffenrodt/android-any-adapter/tags)
